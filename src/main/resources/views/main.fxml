@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.CheckComboBox?>
+<?import org.controlsfx.control.CheckTreeView?>
+<?import org.controlsfx.control.ToggleSwitch?>
+
+<!--
+  ~ Copyright (c) 2022
+  -->
+
+<AnchorPane prefHeight="800.0" prefWidth="1300.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mo.inventory.controllers.MainController">
+   <children>
+      <TabPane prefHeight="124.0" prefWidth="1200.0" style="-fx-background-color: linear-gradient(to top,D1DCFF, transparent);" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <tabs>
+          <Tab text="Данные">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="77.0" layoutY="76.0" text="Штат" />
+                        <Separator layoutX="180.0" layoutY="7.0" orientation="VERTICAL" prefHeight="83.0" prefWidth="3.0" />
+                        <Button fx:id="btnStructure1" layoutX="100.0" layoutY="6.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="60.0" style="-fx-padding: 1; -fx-background-color: transparent;" styleClass="btn-menu" AnchorPane.topAnchor="6.0">
+                           <graphic>
+                              <VBox prefHeight="44.0" prefWidth="60.0" style="-fx-alignment: CENTER; -fx-padding: 1;">
+                                 <children>
+                                    <ImageView fitHeight="40.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/data-protection.png" />
+                                       </image>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </ImageView>
+                                    <Label disable="true" styleClass="btn-label" text="Персонал" />
+                                 </children>
+                              </VBox>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnStructure2" layoutX="214.0" layoutY="6.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="66.0" style="-fx-padding: 1; -fx-background-color: transparent;" styleClass="btn-menu" AnchorPane.topAnchor="6.0">
+                           <graphic>
+                              <VBox prefHeight="44.0" prefWidth="60.0" style="-fx-alignment: CENTER; -fx-padding: 1;">
+                                 <children>
+                                    <ImageView fitHeight="40.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/folder-management.png" />
+                                       </image>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </ImageView>
+                                    <Label disable="true" styleClass="btn-label" text="Категории" />
+                                 </children>
+                              </VBox>
+                           </graphic>
+                        </Button>
+                        <Label layoutX="302.0" layoutY="76.0" text="Активы" />
+                        <Button fx:id="btnStatusActive" layoutX="290.0" layoutY="6.0" mnemonicParsing="false" onAction="#statusAction" prefHeight="70.0" prefWidth="66.0" style="-fx-padding: 1; -fx-background-color: transparent;" styleClass="btn-menu" AnchorPane.topAnchor="6.0">
+                           <graphic>
+                              <VBox prefHeight="44.0" prefWidth="60.0" style="-fx-alignment: CENTER; -fx-padding: 1;">
+                                 <children>
+                                    <ImageView fitHeight="40.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/clipboard.png" />
+                                       </image>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </ImageView>
+                                    <Label disable="true" styleClass="btn-label" text="Статусы" />
+                                 </children>
+                              </VBox>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnFunctionActive" layoutX="363.0" layoutY="6.0" mnemonicParsing="false" onAction="#functionAction" prefHeight="70.0" prefWidth="66.0" style="-fx-padding: 1; -fx-background-color: transparent;" styleClass="btn-menu" AnchorPane.topAnchor="6.0">
+                           <graphic>
+                              <VBox prefHeight="44.0" prefWidth="60.0" style="-fx-alignment: CENTER; -fx-padding: 1;">
+                                 <children>
+                                    <ImageView fitHeight="40.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/innovation.png" />
+                                       </image>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </ImageView>
+                                    <Label disable="true" styleClass="btn-label" text="Функции" />
+                                 </children>
+                              </VBox>
+                           </graphic>
+                        </Button>
+                        <Separator layoutX="443.0" layoutY="7.0" orientation="VERTICAL" prefHeight="83.0" prefWidth="3.0" />
+                        <Button fx:id="btnStructure" layoutX="14.0" layoutY="4.0" mnemonicParsing="false" onAction="#structureAction" prefHeight="70.0" prefWidth="60.0" style="-fx-padding: 1; -fx-background-color: transparent;" styleClass="btn-menu" AnchorPane.topAnchor="6.0">
+                           <graphic>
+                              <VBox prefHeight="44.0" prefWidth="60.0" style="-fx-alignment: CENTER; -fx-padding: 1;">
+                                 <children>
+                                    <ImageView fitHeight="40.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/hierarchical-structure.png" />
+                                       </image>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </ImageView>
+                                    <Label disable="true" styleClass="btn-label" text="Структура" />
+                                 </children>
+                              </VBox>
+                           </graphic>
+                        </Button>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Активы">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="btnStructure3" mnemonicParsing="false" prefHeight="70.0" prefWidth="80.0" style="-fx-padding: 1; -fx-background-color: transparent;" styleClass="btn-menu" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="6.0">
+                           <graphic>
+                              <VBox prefHeight="46.0" prefWidth="80.0" style="-fx-alignment: CENTER; -fx-padding: 1;">
+                                 <children>
+                                    <ImageView fitHeight="40.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/consumer.png" />
+                                       </image>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </ImageView>
+                                    <Label disable="true" styleClass="btn-label" text="Закрепление" />
+                                 </children>
+                              </VBox>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnStructure31" layoutX="109.0" layoutY="6.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="84.0" style="-fx-padding: 1; -fx-background-color: transparent;" styleClass="btn-menu" AnchorPane.topAnchor="6.0">
+                           <graphic>
+                              <VBox prefHeight="46.0" prefWidth="85.0" style="-fx-alignment: CENTER; -fx-padding: 1;">
+                                 <children>
+                                    <ImageView fitHeight="40.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/partnership.png" />
+                                       </image>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </ImageView>
+                                    <Label disable="true" styleClass="btn-label" text="Перемещение" />
+                                 </children>
+                              </VBox>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnStructure311" layoutX="194.0" layoutY="6.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="84.0" style="-fx-padding: 1; -fx-background-color: transparent;" styleClass="btn-menu" AnchorPane.topAnchor="6.0">
+                           <graphic>
+                              <VBox prefHeight="46.0" prefWidth="85.0" style="-fx-alignment: CENTER; -fx-padding: 1;">
+                                 <children>
+                                    <ImageView fitHeight="40.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/box.png" />
+                                       </image>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </ImageView>
+                                    <Label disable="true" styleClass="btn-label" text="Актив" />
+                                 </children>
+                              </VBox>
+                           </graphic>
+                        </Button>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Документы">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab text="Система">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab text="Настройки">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to top,D1DCFF, transparent);" />
+               </content>
+            </Tab>
+            <Tab text="Фильтры">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to top,D1DCFF, transparent);">
+                     <children>
+                        <ToggleSwitch layoutX="453.0" layoutY="9.0" />
+                        <Label layoutX="348.0" layoutY="9.0" text="С драгметаллами" />
+                        <Label layoutX="14.0" layoutY="9.0" text="Категории" />
+                        <CheckComboBox fx:id="checkBoxCategory" layoutX="79.0" layoutY="5.0" prefHeight="25.0" prefWidth="250.0" />
+                        <Label layoutX="14.0" layoutY="39.0" text="Статус" />
+                        <CheckComboBox fx:id="checkBoxCategory1" layoutX="79.0" layoutY="35.0" prefHeight="25.0" prefWidth="250.0" />
+                        <Label layoutX="14.0" layoutY="69.0" text="Функция" />
+                        <CheckComboBox fx:id="checkBoxCategory2" layoutX="79.0" layoutY="65.0" prefHeight="25.0" prefWidth="250.0" />
+                        <DatePicker layoutX="604.0" layoutY="35.0" />
+                        <Label layoutX="533.0" layoutY="10.0" text="Временной интервал поиска" />
+                        <DatePicker layoutX="604.0" layoutY="65.0" />
+                        <Label layoutX="534.0" layoutY="39.0" text="Начало" />
+                        <Label layoutX="534.0" layoutY="69.0" text="Окончание" />
+                        <Label layoutX="797.0" layoutY="10.0" text="Цена" />
+                        <TextField layoutX="916.0" layoutY="65.0" prefHeight="25.0" prefWidth="383.0" AnchorPane.rightAnchor="8.0" />
+                        <Label layoutX="797.0" layoutY="69.0" text="Текстовый поиск" />
+                        <Separator layoutX="338.0" layoutY="3.0" orientation="VERTICAL" prefHeight="88.0" prefWidth="5.0" />
+                        <Separator layoutX="515.0" layoutY="4.0" orientation="VERTICAL" prefHeight="88.0" prefWidth="5.0" />
+                        <Separator layoutX="784.0" layoutY="4.0" orientation="VERTICAL" prefHeight="88.0" prefWidth="5.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <AnchorPane layoutY="163.0" prefHeight="637.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="163.0">
+         <children>
+            <CheckTreeView fx:id="checkTreeViewStructure" layoutX="14.0" layoutY="4.0" prefHeight="622.0" prefWidth="242.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
+         </children>
+      </AnchorPane>
+      <TextField layoutX="4.0" layoutY="130.0" prefHeight="25.0" prefWidth="242.0" text="Поиск отдела или МОЛа" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="130.0" />
+      <AnchorPane layoutX="250.0" layoutY="127.0" prefHeight="672.0" prefWidth="947.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="124.0">
+         <children>
+            <Label layoutX="4.0" layoutY="5.0" text="ОТДЕЛ 4">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Button layoutX="822.0" layoutY="31.0" mnemonicParsing="false" text="Сбросить фильтры" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="31.0" />
+            <Label layoutX="4.0" layoutY="32.0" text="Фильтры:" />
+            <TextArea layoutX="65.0" layoutY="32.0" prefHeight="40.0" prefWidth="753.0" text="С драгметаллами, Категория - Связь, Требующие ремонта, 2012 год закрепления, Цена от 100 до 10 000 руб, ООО &#10;&quot;СпецСвязь&quot;, Количество 4" />
+            <TabPane layoutX="6.0" layoutY="81.0" prefHeight="589.0" prefWidth="1032.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="8.0">
+              <tabs>
+                  <Tab text="Все">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="313.0" prefWidth="938.0">
+                           <children>
+                              <TreeTableView fx:id="tblResult2" layoutX="-4.0" layoutY="8.0" prefHeight="548.0" prefWidth="938.0" showRoot="false" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0">
+                                 <columns>
+                                    <TreeTableColumn id="clmnTitle" fx:id="clmnTitle2" prefWidth="399.0" resizable="false" text="Наименование" />
+                                    <TreeTableColumn id="clmnInv" fx:id="clmnInv22" prefWidth="119.0" resizable="false" text="МОЛ" />
+                                    <TreeTableColumn id="clmnInv" fx:id="clmnInv2" prefWidth="89.0" resizable="false" text="№ инв." />
+                                    <TreeTableColumn id="clmnSerial" fx:id="clmnSerial2" prefWidth="76.0" resizable="false" text="№ зав." />
+                                    <TreeTableColumn id="clmnAmount" fx:id="clmnAmount2" prefWidth="59.0" resizable="false" text="Кол-во" />
+                                    <TreeTableColumn id="clmnPrice" fx:id="clmnPrice2" prefWidth="93.0" resizable="false" text="Цена, руб" />
+                                    <TreeTableColumn id="clmnInfo" fx:id="clmnInfo2" prefWidth="159.0" resizable="false" text="Статус, функции" />
+                                    <TreeTableColumn id="clmnCheck" fx:id="clmnCheck2" prefWidth="34.0" resizable="false" />
+                                 </columns>
+                              </TreeTableView>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                <Tab text="В эксплуатации">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="313.0" prefWidth="938.0">
+                           <children>
+                              <TreeTableView fx:id="tblResult" layoutX="-4.0" layoutY="8.0" prefHeight="548.0" prefWidth="938.0" showRoot="false" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0">
+                                <columns>
+                                  <TreeTableColumn id="clmnTitle" fx:id="clmnTitle" prefWidth="399.0" resizable="false" text="Наименование" />
+                                    <TreeTableColumn id="clmnInv" fx:id="clmnInv2" prefWidth="119.0" resizable="false" text="МОЛ" />
+                                  <TreeTableColumn id="clmnInv" fx:id="clmnInv" prefWidth="89.0" resizable="false" text="№ инв." />
+                                    <TreeTableColumn id="clmnSerial" fx:id="clmnSerial" prefWidth="76.0" resizable="false" text="№ зав." />
+                                    <TreeTableColumn id="clmnAmount" fx:id="clmnAmount" prefWidth="59.0" resizable="false" text="Кол-во" />
+                                    <TreeTableColumn id="clmnPrice" fx:id="clmnPrice" prefWidth="93.0" resizable="false" text="Цена, руб" />
+                                    <TreeTableColumn id="clmnInfo" fx:id="clmnInfo" prefWidth="159.0" resizable="false" text="Статус, функции" />
+                                    <TreeTableColumn id="clmnCheck" fx:id="clmnCheck" prefWidth="34.0" resizable="false" />
+                                </columns>
+                              </TreeTableView>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Списаные">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TreeTableView fx:id="tblResult1" prefHeight="548.0" prefWidth="938.0" showRoot="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                 <columns>
+                                    <TreeTableColumn id="clmnTitle" fx:id="clmnTitle1" prefWidth="399.0" resizable="false" text="Наименование" />
+                                    <TreeTableColumn id="clmnInv" fx:id="clmnInv21" prefWidth="119.0" resizable="false" text="МОЛ" />
+                                    <TreeTableColumn id="clmnInv" fx:id="clmnInv1" prefWidth="89.0" resizable="false" text="№ инв." />
+                                    <TreeTableColumn id="clmnSerial" fx:id="clmnSerial1" prefWidth="76.0" resizable="false" text="№ зав." />
+                                    <TreeTableColumn id="clmnAmount" fx:id="clmnAmount1" prefWidth="59.0" resizable="false" text="Кол-во" />
+                                    <TreeTableColumn id="clmnPrice" fx:id="clmnPrice1" prefWidth="93.0" resizable="false" text="Цена, руб" />
+                                    <TreeTableColumn id="clmnInfo" fx:id="clmnInfo1" prefWidth="159.0" resizable="false" text="Дата списания" />
+                                    <TreeTableColumn id="clmnCheck" fx:id="clmnCheck1" prefWidth="34.0" resizable="false" />
+                                 </columns>
+                              </TreeTableView>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab text="В ремонте">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                     </content>
+                  </Tab>
+                  <Tab text="Переданные">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

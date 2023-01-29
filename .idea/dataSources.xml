@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="specdoc" uuid="52d78bd5-4593-45d1-863b-76a08261194b">
+      <driver-ref>h2.unified</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:file:./bd/specdoc;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE;OLD_INFORMATION_SCHEMA=TRUE</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="inventory" uuid="6885b966-0761-49a8-8b07-65920909ea27">
+      <driver-ref>h2.unified</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:file:./bd/inventory;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE;OLD_INFORMATION_SCHEMA=TRUE</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+  </component>
+</project>
