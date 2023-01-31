@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import mo.inventory.dto.CategoryDTO;
 import mo.inventory.entity.CategoryActive;
 import mo.inventory.model.CategoryActiveModel;
@@ -40,6 +41,31 @@ public class CategoryActiveController implements Initializable {
         clmnDelete.setCellValueFactory(new TreeItemPropertyValueFactory<CategoryDTO, String>("btnDelete"));
         clmnEdit.setCellValueFactory(new TreeItemPropertyValueFactory<CategoryDTO, String>("btnEdit"));
         createStructure();
+        tblCategory.setRowFactory(
+                new Callback<TreeTableView<CategoryDTO>, TreeTableRow<CategoryDTO>>() {
+                    @Override
+                    public TreeTableRow<CategoryDTO> call(TreeTableView<CategoryDTO> tableView) {
+                        final TreeTableRow<CategoryDTO> row = new TreeTableRow<CategoryDTO>();
+                        row.setOnMouseEntered(event -> {
+                            if (row.getTreeItem() != null) {
+                                row.getTreeItem().getValue().getBtnAddNode().setVisible(true);
+                                row.getTreeItem().getValue().getBtnEdit().setVisible(true);
+                                if (row.getTreeItem().getParent() != null) {
+                                    row.getTreeItem().getValue().getBtnDelete().setVisible(true);
+                                } else row.getTreeItem().getValue().getBtnDelete().setVisible(false);
+                            }
+                        });
+                        row.setOnMouseExited(event -> {
+                            if (row.getTreeItem() != null) {
+                                row.getTreeItem().getValue().getBtnAddNode().setVisible(false);
+                                row.getTreeItem().getValue().getBtnEdit().setVisible(false);
+                                row.getTreeItem().getValue().getBtnDelete().setVisible(false);
+                            }
+                        });
+                        return row;
+                    }
+                }
+        );
     }
 
     public void createStructure() {
@@ -100,7 +126,7 @@ public class CategoryActiveController implements Initializable {
 
     public void editNode(String title, CategoryActive category, long id) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/structure-edit.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/category-edit.fxml"));
             CategoryEditController categoryEditController = new CategoryEditController(category, id);
             fxmlLoader.setController(categoryEditController);
             CategoryEditController c = fxmlLoader.getController();

@@ -143,6 +143,9 @@ public class MainController implements Initializable {
     void functionAction(ActionEvent event) {
         createScene("active-function.fxml", "Функции", "", false);
     }
-
+    @FXML
+    void categoryAction(ActionEvent event) {
+        createScene("category-table.fxml", "Категории", "structure-table.css", false);
+    }
 
 }
