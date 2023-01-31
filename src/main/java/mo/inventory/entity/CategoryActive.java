@@ -22,17 +22,20 @@ public class CategoryActive {
     @Basic
     @Column(name = "ID_CATEGORY", nullable = false)
     private long idCategory;
+    @Basic
+    @Column(name = "IS_ROOT", nullable = false)
+    private boolean isRoot;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CategoryActive that = (CategoryActive) o;
-        return id == that.id && idCategory == that.idCategory && Objects.equals(title, that.title);
+        return id == that.id && idCategory == that.idCategory && isRoot == that.isRoot && Objects.equals(title, that.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, idCategory);
+        return Objects.hash(id, title, idCategory, isRoot);
     }
 }

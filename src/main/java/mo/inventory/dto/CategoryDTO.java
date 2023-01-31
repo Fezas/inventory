@@ -11,7 +11,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 @Data
 public class CategoryDTO {
-    private Long idState;
+    private Long idCategory;
     private String title;
     private Button btnAddNode;
     private Button btnEdit;
@@ -19,26 +19,26 @@ public class CategoryDTO {
 
     public CategoryDTO(String title, long id) {
         this.title = title;
-        this.idState = id;
+        this.idCategory = id;
 
         btnAddNode = new Button();
         btnAddNode.setGraphic(new FontIcon("anto-plus-circle"));
         Tooltip tooltipAdd = new Tooltip();
-        tooltipAdd.setText("Добавить подчиненный узел к \n\"" + title + "\"\n");
+        tooltipAdd.setText("Добавить подкатегорию \n\"" + title + "\"\n");
         btnAddNode.setTooltip(tooltipAdd);
         btnAddNode.setVisible(false);
 
         btnEdit = new Button();
         btnEdit.setGraphic(new FontIcon("anto-edit"));
         Tooltip tooltipEdit = new Tooltip();
-        tooltipEdit.setText("Корректировка узла \n\"" + title + "\"\n");
+        tooltipEdit.setText("Корректировка категории \n\"" + title + "\"\n");
         btnEdit.setTooltip(tooltipEdit);
         btnEdit.setVisible(false);
 
         btnDelete = new Button();
         btnDelete.setGraphic(new FontIcon("anto-delete"));
         Tooltip tooltipDelete = new Tooltip();
-        tooltipDelete.setText("Удаление узла \n\"" + title + "\"\n");
+        tooltipDelete.setText("Удаление категории \n\"" + title + "\"\n");
         btnDelete.setTooltip(tooltipDelete);
         btnDelete.setVisible(false);
     }

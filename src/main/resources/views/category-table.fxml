@@ -8,15 +8,14 @@
   ~ Copyright (c) 2022
   -->
 
-<AnchorPane prefHeight="502.0" prefWidth="807.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mo.inventory.controllers.StructureController">
+<AnchorPane prefHeight="396.0" prefWidth="462.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mo.inventory.controllers.CategoryActiveController">
    <children>
-      <TreeTableView fx:id="tblStructure" layoutX="14.0" layoutY="14.0" prefHeight="378.0" prefWidth="894.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="8.0">
+      <TreeTableView fx:id="tblCategory" layoutX="14.0" layoutY="14.0" prefHeight="381.0" prefWidth="446.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="8.0">
         <columns>
-          <TreeTableColumn fx:id="clmnTitleStructure" editable="false" minWidth="12.0" prefWidth="650.0" resizable="false" sortable="false" text="Наименование" />
-            <TreeTableColumn fx:id="clmnAddStructure" editable="false" minWidth="0.0" prefWidth="34.0" resizable="false" sortable="false" />
-            <TreeTableColumn fx:id="clmnEditStructure" editable="false" prefWidth="30.0" resizable="false" sortable="false" />
-            <TreeTableColumn fx:id="clmnDeleteStructure" editable="false" prefWidth="30.0" resizable="false" sortable="false" />
-            <TreeTableColumn fx:id="clmnAddPersona" editable="false" prefWidth="30.0" resizable="false" sortable="false" />
+          <TreeTableColumn fx:id="clmnTitle" editable="false" minWidth="12.0" prefWidth="353.0" resizable="false" sortable="false" text="Наименование" />
+            <TreeTableColumn fx:id="clmnAdd" editable="false" minWidth="0.0" prefWidth="29.0" resizable="false" sortable="false" />
+            <TreeTableColumn fx:id="clmnEdit" editable="false" prefWidth="29.0" resizable="false" sortable="false" />
+            <TreeTableColumn fx:id="clmnDelete" editable="false" prefWidth="34.0" resizable="false" sortable="false" />
         </columns>
       </TreeTableView>
    </children>

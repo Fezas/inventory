@@ -23,6 +23,7 @@
     <mapping class="mo.inventory.entity.StatusActive"/>
     <mapping class="mo.inventory.entity.FunctionActive"/>
     <mapping class="mo.inventory.entity.TypeObject"/>
+    <mapping class="mo.inventory.entity.CategoryActive"/>
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
   </session-factory>

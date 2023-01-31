@@ -51,7 +51,7 @@
                               </VBox>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnStructure2" layoutX="214.0" layoutY="6.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="66.0" style="-fx-padding: 1; -fx-background-color: transparent;" styleClass="btn-menu" AnchorPane.topAnchor="6.0">
+                        <Button fx:id="btnStructure2" layoutX="214.0" layoutY="6.0" mnemonicParsing="false" onAction="#categoryAction" prefHeight="70.0" prefWidth="66.0" style="-fx-padding: 1; -fx-background-color: transparent;" styleClass="btn-menu" AnchorPane.topAnchor="6.0">
                            <graphic>
                               <VBox prefHeight="44.0" prefWidth="60.0" style="-fx-alignment: CENTER; -fx-padding: 1;">
                                  <children>
