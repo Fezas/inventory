@@ -39,7 +39,7 @@ public class StructureController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //проивязка столбцов таблицы к свойствам объекта
+        //привязка столбцов таблицы к свойствам объекта
         clmnTitleStructure.setCellValueFactory(new TreeItemPropertyValueFactory<StateDTO, String>("title"));
         clmnAddStructure.setCellValueFactory(new TreeItemPropertyValueFactory<StateDTO, String>("btnAddNode"));
         clmnDeleteStructure.setCellValueFactory(new TreeItemPropertyValueFactory<StateDTO, String>("btnDelete"));
