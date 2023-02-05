@@ -18,6 +18,8 @@ import javafx.util.Callback;
 import mo.inventory.dto.CategoryDTO;
 import mo.inventory.entity.CategoryActive;
 import mo.inventory.model.CategoryActiveModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,11 +29,11 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CategoryActiveController implements Initializable {
-    @FXML
-    private TreeTableColumn<CategoryDTO, String> clmnAdd, clmnDelete, clmnEdit, clmnTitle;
+    @FXML    private TreeTableColumn<CategoryDTO, String> clmnAdd, clmnDelete, clmnEdit, clmnTitle;
     @FXML    private TreeTableView<CategoryDTO> tblCategory;
     private final CategoryActiveModel model = new CategoryActiveModel();
-    private CategoryDTO node;
+    private static CategoryDTO node;
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -150,6 +152,7 @@ public class CategoryActiveController implements Initializable {
         alert.setContentText("Вы действительно хотите удалить запись \"" + title + "\" и все дочерние записи?");
         Optional<ButtonType> option = alert.showAndWait();
         if (option.get() == ButtonType.OK) {
+            logger.info("OPERATION: удаление записи " + category.toString());
             model.delete(category);
             refresh();
         }

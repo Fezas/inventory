@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. Stepantsov P.V.
+ * Copyright (c) 2022-2023. Stepantsov P.V.
  */
 
 package mo.inventory.model;

@@ -21,7 +21,7 @@
 <?import org.controlsfx.control.ToggleSwitch?>
 
 <!--
-  ~ Copyright (c) 2022
+  ~ Copyright (c) 2022-2023. Stepantsov P.V.
   -->
 
 <AnchorPane prefHeight="800.0" prefWidth="1300.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mo.inventory.controllers.MainController">
@@ -174,7 +174,24 @@
                                           <Insets />
                                        </VBox.margin>
                                     </ImageView>
-                                    <Label disable="true" styleClass="btn-label" text="Актив" />
+                                    <Label disable="true" styleClass="btn-label" text="Активы" />
+                                 </children>
+                              </VBox>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnStructure3111" layoutX="278.0" layoutY="6.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="84.0" style="-fx-padding: 1; -fx-background-color: transparent;" styleClass="btn-menu" AnchorPane.topAnchor="6.0">
+                           <graphic>
+                              <VBox prefHeight="68.0" prefWidth="72.0" style="-fx-alignment: CENTER; -fx-padding: 1;">
+                                 <children>
+                                    <ImageView fitHeight="40.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/abstarct.png" />
+                                       </image>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </ImageView>
+                                    <Label disable="true" prefHeight="17.0" prefWidth="59.0" styleClass="btn-label" text="Абстракты" />
                                  </children>
                               </VBox>
                            </graphic>

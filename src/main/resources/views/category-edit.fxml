@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <!--
-  ~ Copyright (c) 2022. Stepantsov P.V.
+  ~ Copyright (c) 2022-2023. Stepantsov P.V.
   -->
 
 <AnchorPane prefHeight="83.0" prefWidth="457.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. Stepantsov P.V.
+ * Copyright (c) 2022-2023. Stepantsov P.V.
  */
 
 package mo.inventory.controllers;
@@ -13,6 +13,8 @@ import javafx.scene.control.TreeTableView;
 import javafx.stage.Stage;
 import mo.inventory.entity.CategoryActive;
 import mo.inventory.model.CategoryActiveModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -24,6 +26,7 @@ public class CategoryEditController implements Initializable {
     private CategoryActive category;
     private long id;
     private CategoryActiveController controller;
+    private static final Logger logger = LogManager.getLogger();
 
     public CategoryEditController(CategoryActive category, long id) {
         this.category = category;
@@ -48,13 +51,16 @@ public class CategoryEditController implements Initializable {
 
     @FXML
     void save(ActionEvent event) {
+        String messageLog;
         CategoryActiveModel model = new CategoryActiveModel();
         category.setTitle(tfTitle.getText());
         if (category.getId() == 0L) { //создание нового узла
             category.setIdCategory(id);
-        }
+            messageLog = " создание новой записи ";
+        } else messageLog = " сохранение записи ";
         model.saveOrUpdateCategory(category);
         controller.refresh();
+        logger.info("OPERATION:" + messageLog + category.toString());
         Stage stage = (Stage) btnSave.getScene().getWindow();
         stage.close();
     }

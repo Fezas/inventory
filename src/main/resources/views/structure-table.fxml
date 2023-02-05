@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <!--
-  ~ Copyright (c) 2022
+  ~ Copyright (c) 2022-2023. Stepantsov P.V.
   -->
 
 <AnchorPane prefHeight="502.0" prefWidth="807.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mo.inventory.controllers.StructureController">

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2023. Stepantsov P.V.
+ */
+
 package mo.inventory;
 
 import javafx.application.Application;
@@ -11,7 +15,7 @@ import java.io.IOException;
 public class InventoryApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(InventoryApplication.class.getResource("/views/main.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(InventoryApplication.class.getResource("/views/abstract-active-table.fxml"));
         //FXMLLoader fxmlLoader = new FXMLLoader(InventoryApplication.class.getResource("/views/persons.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         //scene.getStylesheets().add(getClass().getResource("/css/structure-table.css").toExternalForm());
