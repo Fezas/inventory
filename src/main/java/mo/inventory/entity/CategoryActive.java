@@ -6,11 +6,14 @@ package mo.inventory.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
+import java.util.List;
 import java.util.Objects;
 @Data
 @Entity
-@Table(name = "CATEGORY_ACTIVE", schema = "PUBLIC", catalog = "inventory")
+@Table(name = "CATEGORY_ACTIVE", schema = "PUBLIC", catalog = "INVENTORY")
 public class CategoryActive {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -25,6 +28,10 @@ public class CategoryActive {
     @Basic
     @Column(name = "IS_ROOT", nullable = false)
     private boolean isRoot;
+
+    @OneToMany(mappedBy="categoryActive")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<AbstractActive> abstractActives;
 
     @Override
     public boolean equals(Object o) {

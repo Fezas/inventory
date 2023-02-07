@@ -179,7 +179,7 @@
                               </VBox>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnStructure3111" layoutX="278.0" layoutY="6.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="84.0" style="-fx-padding: 1; -fx-background-color: transparent;" styleClass="btn-menu" AnchorPane.topAnchor="6.0">
+                        <Button fx:id="btnStructure3111" layoutX="278.0" layoutY="6.0" mnemonicParsing="false" onAction="#abstractAction" prefHeight="70.0" prefWidth="84.0" style="-fx-padding: 1; -fx-background-color: transparent;" styleClass="btn-menu" AnchorPane.topAnchor="6.0">
                            <graphic>
                               <VBox prefHeight="68.0" prefWidth="72.0" style="-fx-alignment: CENTER; -fx-padding: 1;">
                                  <children>

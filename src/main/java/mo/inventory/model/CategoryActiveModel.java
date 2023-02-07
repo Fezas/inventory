@@ -65,6 +65,22 @@ public class CategoryActiveModel {
         return result;
     }
 
+    public static List<CategoryActive> getAll() {
+        Transaction transaction = null;
+        List<CategoryActive> result = new ArrayList<>();
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            result = session.createQuery("SELECT a FROM CategoryActive a WHERE a.isRoot = false", CategoryActive.class).getResultList();
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public static List<CategoryActive> getFromIdCategoryActive(long idNode) {
         Transaction transaction = null;
         List<CategoryActive> result = new ArrayList<>();

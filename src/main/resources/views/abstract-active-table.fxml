@@ -7,4 +7,4 @@
   -->
 
 
-<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mo.inventory.controllers.AbstractController" />
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mo.inventory.controllers.AbstractController" />

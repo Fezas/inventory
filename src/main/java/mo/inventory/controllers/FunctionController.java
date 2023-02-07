@@ -33,15 +33,8 @@ public class FunctionController implements Initializable {
     public static FunctionActive selected;
 
     @FXML    private Button btnCancel, btnHelp, btnAdd;
-
-    @FXML    private TableColumn<FunctionActive, String> clmnCodeBasic;
-    @FXML    private TableColumn<FunctionActive, String> clmnCodeMaterial;
-
-    @FXML    private TableColumn<FunctionActive, String> clmnTitleBasic;
-    @FXML    private TableColumn<FunctionActive, String> clmnTitleMaterial;
-
-    @FXML    private TableView<FunctionActive> tblBasic;
-    @FXML    private TableView<FunctionActive> tblMaterial;
+    @FXML    private TableColumn<FunctionActive, String> clmnCodeBasic, clmnCodeMaterial, clmnTitleBasic, clmnTitleMaterial;
+    @FXML    private TableView<FunctionActive> tblBasic, tblMaterial;
 
     @FXML
     void cancel(ActionEvent event) {
