@@ -45,4 +45,9 @@ public class CategoryActive {
     public int hashCode() {
         return Objects.hash(id, title, idCategory, isRoot);
     }
+
+    @Override
+    public String toString() {
+        return title;
+    }
 }

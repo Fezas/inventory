@@ -9,9 +9,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -20,7 +23,6 @@ import mo.inventory.entity.Persona;
 import mo.inventory.entity.Structure;
 import mo.inventory.model.PersonaModel;
 import mo.inventory.model.StructureModel;
-import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,12 +35,14 @@ public class StructureController implements Initializable {
     @FXML    private TreeTableColumn<StateDTO, String> clmnAddStructure, clmnDeleteStructure, clmnEditStructure, clmnAddPersona;
     @FXML    private TreeTableColumn<StateDTO, String> clmnTitleStructure;
     @FXML    private TreeTableView<StateDTO> tblStructure;
+    private MainController controller;
     private final StructureModel structureModel = new StructureModel();
     private final PersonaModel personaModel = new PersonaModel();
     private StateDTO node;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         //привязка столбцов таблицы к свойствам объекта
         clmnTitleStructure.setCellValueFactory(new TreeItemPropertyValueFactory<StateDTO, String>("title"));
         clmnAddStructure.setCellValueFactory(new TreeItemPropertyValueFactory<StateDTO, String>("btnAddNode"));
@@ -78,7 +82,9 @@ public class StructureController implements Initializable {
         );
         //тут была какая то дикая ошибка - при коллапсе слетают иконки молов, но после оптимизации кода куда то делась....
         clmnTitleStructure.setCellFactory(ttc -> new TreeTableCell<StateDTO, String>() {
-            private final FontIcon graphic = new FontIcon("anto-user");
+            final Node nodeImageUser = new ImageView(
+                    new Image(getClass().getResourceAsStream("/images/user.png"))
+            );
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -89,16 +95,21 @@ public class StructureController implements Initializable {
                 }
                 StateDTO node = getTableRow().getItem();
                 if (node != null) {
-                    setGraphic(node.isType() ? null : graphic);
+                    setGraphic(node.isType() ? null : nodeImageUser);
                 }
                 setText(empty ? null : item);
             }
         });
     }
 
+    public void setParent (MainController controller){
+        this.controller = controller;
+    }
+
     public void refresh() {
         tblStructure.getRoot().getChildren().clear();
         structure(tblStructure.getRoot());
+        controller.refresh(); //Обновление в MainController структуры TreeView
     }
 
     public void createStructure() {
@@ -133,6 +144,7 @@ public class StructureController implements Initializable {
      */
     
     public void structure(TreeItem<StateDTO> itemRoot) {
+
         List<Structure> data = structureModel.getFromIdStructure(itemRoot.getValue().getIdState()); //дочерние узлы
         List<Persona> persons = personaModel.getFromIdStructure(itemRoot.getValue().getIdState()); //персоны в узлах
         if (!persons.isEmpty()) {

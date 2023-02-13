@@ -6,7 +6,10 @@ package mo.inventory.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
+import java.util.List;
 import java.util.Objects;
 @Data
 @Entity
@@ -20,6 +23,10 @@ public class TypeActive {
     @Column(name = "TITLE", nullable = false, length = 50)
     private String title;
 
+    @OneToMany(mappedBy="typeActive")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<AbstractActive> abstractActives;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -31,5 +38,10 @@ public class TypeActive {
     @Override
     public int hashCode() {
         return Objects.hash(id, title);
+    }
+
+    @Override
+    public String toString() {
+        return title;
     }
 }

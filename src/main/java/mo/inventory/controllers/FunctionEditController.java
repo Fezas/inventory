@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import mo.inventory.entity.FunctionActive;
 import mo.inventory.entity.TypeObject;
 import mo.inventory.model.FunctionActiveModel;
-import mo.inventory.model.TypeActiveModel;
+import mo.inventory.model.TypeObjectActiveModel;
 import mo.inventory.util.ValidatorTextField;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -54,7 +54,7 @@ public class FunctionEditController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        cmbBoxTypeActive.getItems().addAll(TypeActiveModel.findAll());
+        cmbBoxTypeActive.getItems().addAll(TypeObjectActiveModel.getAll());
         btnSave.setGraphic(new FontIcon("anto-save"));
         btnCancel.setGraphic(new FontIcon("anto-close"));
         ValidatorTextField validator = new ValidatorTextField();

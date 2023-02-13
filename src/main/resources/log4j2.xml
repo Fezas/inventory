@@ -22,32 +22,14 @@
                         size="50 MB" />
             </Policies>
             <Filters>
-                <Filter type="ThresholdFilter" level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
-            </Filters>
-        </RollingFile>
-        <RollingFile name="rollingInfo"
-                     fileName="logs/info.log"
-                     filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
-            <PatternLayout>
-                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
-            </PatternLayout>
-            <Policies>
-                <TimeBasedTriggeringPolicy interval = "1" />
-                <SizeBasedTriggeringPolicy
-                        size="50 MB" />
-            </Policies>
-            <Filters>
-                <RegexFilter regex=".*LOGIN.*" onMatch="ACCEPT" onMismatch="DENY"/>
-                <RegexFilter regex=".*OPERATION.*" onMatch="ACCEPT" onMismatch="DENY"/>
-                <RegexFilter regex=".*INFO.*" onMatch="ACCEPT" onMismatch="DENY"/>
+                <Filter type="ThresholdFilter" level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
             </Filters>
         </RollingFile>
     </Appenders>
 
     <Loggers>
-        <Root level="INFO">
+        <Root level="DEBUG">
             <AppenderRef ref="STDOUT" />
-            <AppenderRef ref="rollingInfo" />
             <AppenderRef ref="rollingSystem" />
         </Root>
     </Loggers>

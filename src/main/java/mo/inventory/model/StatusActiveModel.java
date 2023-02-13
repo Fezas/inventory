@@ -62,7 +62,7 @@ public class StatusActiveModel {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            result = TypeActiveModel.getFromId(id).getStatuses();
+            result = TypeObjectActiveModel.getFromId(id).getStatuses();
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {

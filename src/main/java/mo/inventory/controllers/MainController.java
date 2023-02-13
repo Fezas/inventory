@@ -5,11 +5,15 @@
 package mo.inventory.controllers;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mo.inventory.dto.StateDTO;
@@ -19,7 +23,6 @@ import mo.inventory.model.PersonaModel;
 import mo.inventory.model.StructureModel;
 import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.control.CheckTreeView;
-import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.net.URL;
 import java.util.List;
@@ -38,20 +41,38 @@ public class MainController implements Initializable {
         checkTreeViewStructure.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         //checkTreeViewStructure.setShowRoot(false);
         checkTreeViewStructure.setCellFactory(ttc -> new TreeCell<StateDTO>() {
-            private final FontIcon graphic = new FontIcon("anto-user");
+            final Node nodeImageUser = new ImageView(
+                    new Image(getClass().getResourceAsStream("/images/user.png"))
+            );
+            //контексное меню
+            final ContextMenu rowMenu = new ContextMenu();
+            MenuItem addFix = new MenuItem("Закрепление");
+            //rowMenu.getItems().addAll(addFix);
             @Override
             protected void updateItem(StateDTO item, boolean empty) {
                 super.updateItem(item, empty);
-                if(empty){
+                if (empty) {
                     setText(null);
                     setGraphic(null);
                     return;
                 }
                 StateDTO node = getItem();
                 if (node != null) {
-                    setGraphic(node.isType() ? null : graphic);
+                    setGraphic(node.isType() ? null : nodeImageUser);
+                    setOnMouseClicked(event -> {
+                        if (event.getClickCount() == 2) {
+                            StateDTO rowData = node;
+                            System.out.println("------" + node.getTitle());
+                        }
+                    });
+                    addFix.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                        }
+                    });
                 }
                 setText(empty ? null : String.valueOf(item.getTitle()));
+
             }
         });
     }
@@ -64,7 +85,6 @@ public class MainController implements Initializable {
         itemRoot.setExpanded(true);
         structure(itemRoot);
         checkTreeViewStructure.setRoot(itemRoot);
-
     }
 
     /**
@@ -115,6 +135,10 @@ public class MainController implements Initializable {
             Stage stage = new Stage();
             stage.setTitle(title);
             Scene scene = new Scene(loader.load());
+            if (nameResourceXML.equals("structure-table.fxml")){ // передаем контроллер для обновления checkTreeViewStructure
+                StructureController structureController = loader.getController();
+                structureController.setParent(this);
+            }
             stage.setScene(scene);
             scene.getStylesheets().add(getClass().getResource("/css/" + css).toString());
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -150,5 +174,9 @@ public class MainController implements Initializable {
     @FXML
     void abstractAction(ActionEvent event) {
         createScene("abstract-active-table.fxml", "Ценности", "", false);
+    }
+    @FXML
+    void fixAction(ActionEvent event) {
+        createScene("active-fix.fxml", "Ценности", "", false);
     }
 }

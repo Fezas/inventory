@@ -35,13 +35,13 @@ public class AbstractActive {
     @JoinColumn(name = "ID_CATEGORY_ACTIVE", nullable = false)
     private CategoryActive categoryActive;
 
-    @Basic
-    @Column(name = "ID_TYPE_ACTIVE", nullable = true)
-    private int typeActive;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_TYPE_ACTIVE", nullable = true)
+    private TypeActive typeActive;
 
-    @Basic
-    @Column(name = "ID_OKEI", nullable = true)
-    private String okei;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_OKEI", nullable = true)
+    private Okei okei;
 
     @Transient
     private CheckBox remark = new CheckBox();

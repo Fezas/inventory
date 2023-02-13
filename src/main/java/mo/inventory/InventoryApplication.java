@@ -20,9 +20,10 @@ public class InventoryApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         //scene.getStylesheets().add(getClass().getResource("/css/structure-table.css").toExternalForm());
         stage.setTitle("Спецдок БД");
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setScene(scene);
         stage.show();
+
     }
 
     public static void main(String[] args) {

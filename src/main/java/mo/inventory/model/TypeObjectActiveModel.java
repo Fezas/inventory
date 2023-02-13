@@ -4,7 +4,7 @@
 
 package mo.inventory.model;
 
-import mo.inventory.entity.TypeActive;
+import mo.inventory.entity.TypeObject;
 import mo.inventory.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -12,13 +12,13 @@ import org.hibernate.Transaction;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TypeActiveModel {
-    public static List<TypeActive> getAll() {
+public class TypeObjectActiveModel {
+    public static List<TypeObject> getAll() {
         Transaction transaction = null;
-        List<TypeActive> result = new ArrayList<>();
+        List<TypeObject> result = new ArrayList<>();
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            result = session.createQuery("SELECT a FROM TypeActive a", TypeActive.class).getResultList();
+            result = session.createQuery("SELECT a FROM TypeObject a", TypeObject.class).getResultList();
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -28,12 +28,12 @@ public class TypeActiveModel {
         }
         return result;
     }
-    public static TypeActive getFromId(String id) {
+    public static TypeObject getFromId(String id) {
         Transaction transaction = null;
-        TypeActive result = null;
+        TypeObject result = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            result = session.byId(TypeActive.class).load(id);
+            result = session.byId(TypeObject.class).load(id);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -43,6 +43,6 @@ public class TypeActiveModel {
         }
         return result;
     }
-    public TypeActiveModel() {
+    public TypeObjectActiveModel() {
     }
 }

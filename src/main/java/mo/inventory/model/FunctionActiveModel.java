@@ -62,7 +62,7 @@ public class FunctionActiveModel {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            result = TypeActiveModel.getFromId(id).getFunctionActives();
+            result = TypeObjectActiveModel.getFromId(id).getFunctionActives();
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {

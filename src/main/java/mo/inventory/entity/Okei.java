@@ -6,7 +6,10 @@ package mo.inventory.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
+import java.util.List;
 import java.util.Objects;
 @Data
 @Entity
@@ -28,6 +31,10 @@ public class Okei {
     @Column(name = "FLAG_ACTUAL", nullable = false)
     private boolean flagActual;
 
+    @OneToMany(mappedBy="okei")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<AbstractActive> abstractActives;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -39,5 +46,10 @@ public class Okei {
     @Override
     public int hashCode() {
         return Objects.hash(code, nameUnit, symbol, idTypeUnit, flagActual);
+    }
+
+    @Override
+    public String toString() {
+        return symbol;
     }
 }

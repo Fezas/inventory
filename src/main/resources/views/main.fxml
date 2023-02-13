@@ -191,7 +191,7 @@
                                           <Insets />
                                        </VBox.margin>
                                     </ImageView>
-                                    <Label disable="true" prefHeight="17.0" prefWidth="59.0" styleClass="btn-label" text="Абстракты" />
+                                    <Label disable="true" prefHeight="17.0" prefWidth="81.0" styleClass="btn-label" text="Мат. ценности" />
                                  </children>
                               </VBox>
                            </graphic>
@@ -245,7 +245,8 @@
       </TabPane>
       <AnchorPane layoutY="163.0" prefHeight="637.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="163.0">
          <children>
-            <CheckTreeView fx:id="checkTreeViewStructure" layoutX="14.0" layoutY="4.0" prefHeight="622.0" prefWidth="242.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
+            <Button layoutX="4.0" layoutY="550.0" mnemonicParsing="false" onAction="#fixAction" prefHeight="25.0" prefWidth="242.0" text="Закрепить МС" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="4.0" />
+            <CheckTreeView fx:id="checkTreeViewStructure" layoutX="14.0" layoutY="4.0" prefHeight="537.0" prefWidth="242.0" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
          </children>
       </AnchorPane>
       <TextField layoutX="4.0" layoutY="130.0" prefHeight="25.0" prefWidth="242.0" text="Поиск отдела или МОЛа" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="130.0" />
@@ -259,7 +260,7 @@
             <Button layoutX="822.0" layoutY="31.0" mnemonicParsing="false" text="Сбросить фильтры" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="31.0" />
             <Label layoutX="4.0" layoutY="32.0" text="Фильтры:" />
             <TextArea layoutX="65.0" layoutY="32.0" prefHeight="40.0" prefWidth="753.0" text="С драгметаллами, Категория - Связь, Требующие ремонта, 2012 год закрепления, Цена от 100 до 10 000 руб, ООО &#10;&quot;СпецСвязь&quot;, Количество 4" />
-            <TabPane layoutX="6.0" layoutY="81.0" prefHeight="589.0" prefWidth="1032.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="8.0">
+            <TabPane layoutX="6.0" layoutY="81.0" prefHeight="537.0" prefWidth="1032.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="8.0">
               <tabs>
                   <Tab text="Все">
                      <content>
