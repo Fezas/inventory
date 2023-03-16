@@ -9,11 +9,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mo.inventory.dto.StateDTO;
@@ -21,6 +18,7 @@ import mo.inventory.entity.Persona;
 import mo.inventory.entity.Structure;
 import mo.inventory.model.PersonaModel;
 import mo.inventory.model.StructureModel;
+import mo.inventory.util.ContextMenuListCell;
 import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.control.CheckTreeView;
 
@@ -31,50 +29,43 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     private StateDTO node;
+    public Persona currentPersona;
     @FXML    private CheckTreeView<StateDTO> checkTreeViewStructure;
     @FXML    private CheckComboBox<String> checkBoxCategory;
     @FXML    private Button btnStructure;
+
+    public Persona getCurrentPersona() {
+        return currentPersona;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         createStructure();
         checkTreeViewStructure.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         //checkTreeViewStructure.setShowRoot(false);
-        checkTreeViewStructure.setCellFactory(ttc -> new TreeCell<StateDTO>() {
-            final Node nodeImageUser = new ImageView(
-                    new Image(getClass().getResourceAsStream("/images/user.png"))
-            );
-            //контексное меню
-            final ContextMenu rowMenu = new ContextMenu();
-            MenuItem addFix = new MenuItem("Закрепление");
-            //rowMenu.getItems().addAll(addFix);
-            @Override
-            protected void updateItem(StateDTO item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setText(null);
-                    setGraphic(null);
-                    return;
-                }
-                StateDTO node = getItem();
-                if (node != null) {
-                    setGraphic(node.isType() ? null : nodeImageUser);
-                    setOnMouseClicked(event -> {
-                        if (event.getClickCount() == 2) {
-                            StateDTO rowData = node;
-                            System.out.println("------" + node.getTitle());
-                        }
-                    });
-                    addFix.setOnAction(new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent event) {
-                        }
-                    });
-                }
-                setText(empty ? null : String.valueOf(item.getTitle()));
 
+        // Создание MenuItem и помещение его в ContextMenu
+        MenuItem addFix = new MenuItem("Закрепление");
+        ContextMenu contextMenu = new ContextMenu(addFix);
+        addFix.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //System.out.println("addFix " + checkTreeViewStructure.getSelectionModel().getSelectedItem().getValue().getTitle());
+                //StateDTO selectItem = checkTreeViewStructure.getSelectionModel().getSelectedItem().getValue();
+                //System.out.println(PersonaModel.getFromId(selectItem.getIdState()).getFamily());
+                //if(!selectItem.isType()) { //если выбранный узел - персона
+                //    currentPersona = PersonaModel.getFromId(selectItem.getIdState());
+                //    createSceneFix(currentPersona);
+                //}
             }
         });
+
+        // устанавливает фабрику ячеек в ListView, сообщая ему об использовании ранее созданного ContextMenu (использует фабрику ячеек по умолчанию)
+        checkTreeViewStructure.setCellFactory(ContextMenuListCell.<StateDTO>forListView(contextMenu));
+
+        // То же, что и выше, но использует пользовательскую фабрику ячеек, которая определена в другом месте.
+        // checkTreeViewStructure.setCellFactory(ContextMenuListCell.<StateDTO>forListView(contextMenu, customCellFactory));
+
     }
 
     public void createStructure() {
@@ -155,6 +146,32 @@ public class MainController implements Initializable {
         }
     }
 
+    private void createSceneFix(Persona persona) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/active-fix.fxml"));
+            ActiveFixController activeFixController = new ActiveFixController(persona);
+            loader.setController(activeFixController);
+            Stage stage = new Stage();
+            stage.setTitle("Закрепление");
+            Scene scene = new Scene(loader.load());
+            ActiveFixController controller = loader.getController();
+            controller.setParent(this);
+            stage.setScene(scene);
+            //scene.getStylesheets().add(getClass().getResource("/css/" + css).toString());
+            stage.initModality(Modality.APPLICATION_MODAL);
+            //stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/telegra.png"))));
+            stage.setResizable(false);
+            stage.showAndWait();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            //logger.error("Error", e);
+            System.exit(-1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            //logger.error("Error", e);
+        }
+    }
+
     @FXML
     void structureAction(ActionEvent event) {
         createScene("structure-table.fxml", "Структура", "structure-table.css", false);
@@ -179,4 +196,6 @@ public class MainController implements Initializable {
     void fixAction(ActionEvent event) {
         createScene("active-fix.fxml", "Ценности", "", false);
     }
+
+
 }

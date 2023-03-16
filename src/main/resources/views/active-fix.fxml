@@ -7,7 +7,6 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -15,34 +14,33 @@
   ~ Copyright (c) 2022-2023. Stepantsov P.V.
   -->
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mo.inventory.controllers.ActiveFixController">
+<AnchorPane prefHeight="520.0" prefWidth="457.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="btnCancel" cancelButton="true" layoutX="1081.0" layoutY="761.0" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="105.0" text="Отмена" />
-      <Button fx:id="btnSave" layoutX="970.0" layoutY="761.0" mnemonicParsing="false" onAction="#save" prefHeight="25.0" prefWidth="105.0" text="Сохранить" />
-      <TreeView layoutX="14.0" layoutY="43.0" prefHeight="700.0" prefWidth="445.0" />
-      <TabPane layoutX="472.0" layoutY="14.0" prefHeight="729.0" prefWidth="717.0" tabClosingPolicy="UNAVAILABLE">
+      <Button fx:id="btnCancel" cancelButton="true" layoutX="338.0" layoutY="481.0" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="105.0" text="Отмена" />
+      <Button fx:id="btnSave" layoutX="227.0" layoutY="481.0" mnemonicParsing="false" onAction="#save" prefHeight="25.0" prefWidth="105.0" text="Сохранить" />
+      <TabPane layoutX="14.0" layoutY="49.0" prefHeight="393.0" prefWidth="430.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Данные">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="393.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="596.0" prefWidth="386.0">
                      <children>
                         <Label layoutX="33.0" layoutY="47.0" text="Количество" />
-                        <TextField layoutX="202.0" layoutY="43.0" />
+                        <TextField fx:id="tfAmount" layoutX="202.0" layoutY="43.0" />
                         <Label layoutX="33.0" layoutY="81.0" text="Заводской номер" />
-                        <TextField layoutX="202.0" layoutY="77.0" />
+                        <TextField fx:id="tfFactoryNumber" layoutX="202.0" layoutY="77.0" />
                         <Label layoutX="33.0" layoutY="115.0" text="Инвентарный номер" />
-                        <TextField layoutX="202.0" layoutY="111.0" />
+                        <TextField fx:id="tfInventoryNumber" layoutX="202.0" layoutY="111.0" />
                         <Label layoutX="33.0" layoutY="149.0" text="Дата постановки на бух.учет" />
-                        <DatePicker layoutX="201.0" layoutY="145.0" prefHeight="25.0" prefWidth="149.0" />
+                        <DatePicker fx:id="dateAccounting" layoutX="201.0" layoutY="145.0" prefHeight="25.0" prefWidth="149.0" />
                         <Label layoutX="34.0" layoutY="184.0" text="Дата ввода в эксплуатацию" />
-                        <DatePicker layoutX="202.0" layoutY="180.0" prefHeight="25.0" prefWidth="149.0" />
-                        <ComboBox layoutX="202.0" layoutY="215.0" prefWidth="150.0" />
+                        <DatePicker fx:id="dateCommissioning" layoutX="202.0" layoutY="180.0" prefHeight="25.0" prefWidth="149.0" />
+                        <ComboBox fx:id="cmbFunctionActive" layoutX="202.0" layoutY="215.0" prefWidth="150.0" />
                         <Label layoutX="36.0" layoutY="219.0" text="Функция актива" />
-                        <ComboBox layoutX="202.0" layoutY="250.0" prefWidth="150.0" AnchorPane.bottomAnchor="425.0" AnchorPane.leftAnchor="202.0" />
+                        <ComboBox fx:id="cmbStatusActive" layoutX="202.0" layoutY="250.0" prefWidth="150.0" AnchorPane.bottomAnchor="425.0" AnchorPane.leftAnchor="202.0" />
                         <Label layoutX="38.0" layoutY="254.0" text="Статус актива" />
                         <Label layoutX="38.0" layoutY="289.0" text="Номер (код) счета бух. учета" />
-                        <TextField layoutX="203.0" layoutY="285.0" prefHeight="25.0" prefWidth="149.0" />
-                        <ComboBox layoutX="203.0" layoutY="320.0" prefWidth="150.0" />
+                        <TextField fx:id="tfAccountNumber" layoutX="203.0" layoutY="285.0" prefHeight="25.0" prefWidth="149.0" />
+                        <ComboBox fx:id="cmbProvider" layoutX="203.0" layoutY="320.0" prefWidth="150.0" />
                         <Label layoutX="38.0" layoutY="324.0" text="Поставщик" />
                      </children>
                   </AnchorPane>
@@ -60,7 +58,7 @@
             </Tab>
         </tabs>
       </TabPane>
-      <Label layoutX="14.0" layoutY="6.0" text="Закрепление, МОЛ">
+      <Label fx:id="lblNameMol" layoutX="14.0" layoutY="14.0" text="Label" AnchorPane.topAnchor="14.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>

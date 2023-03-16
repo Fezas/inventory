@@ -179,6 +179,7 @@ public class AbstractController implements Initializable {
 
                     MenuItem editItem = new MenuItem("Редактировать");
                     MenuItem removeItem = new MenuItem("Удалить пункт");
+                    MenuItem fixItem = new MenuItem("Закрепить");
 
                     editItem.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
@@ -203,7 +204,16 @@ public class AbstractController implements Initializable {
 
                         }
                     });
-                    rowMenu.getItems().addAll(editItem, removeItem);
+                    fixItem.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            select = row.getItem();
+                            fix("Закрепление " + select.getTitle(), select);
+                            select = null;
+                        }
+                    });
+
+                    rowMenu.getItems().addAll(editItem, removeItem, fixItem);
                     // only display context menu for non-empty rows:
                     row.contextMenuProperty().bind(
                             Bindings.when(row.emptyProperty())
@@ -266,6 +276,23 @@ public class AbstractController implements Initializable {
             fxmlLoader.setController(abstractEditController);
             AbstractEditController c = fxmlLoader.getController();
             c.setParent(this);
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle(title);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void fix(String title, AbstractActive active) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/fix-person-tree.fxml"));
+            SelectPersonController selectPersonController = new SelectPersonController(active);
+            fxmlLoader.setController(selectPersonController);
             Scene scene = new Scene(fxmlLoader.load());
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);

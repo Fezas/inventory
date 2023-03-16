@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<!--
+  ~ Copyright (c) 2023. Stepantsov P.V.
+  -->
+
+
+<AnchorPane prefHeight="538.0" prefWidth="412.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="10.0" layoutY="7.0" prefHeight="554.0" prefWidth="402.0">
+         <children>
+            <TreeTableView fx:id="tblTreeViewStructure" layoutX="14.0" layoutY="14.0" prefHeight="529.0" prefWidth="374.0">
+              <columns>
+                <TreeTableColumn fx:id="clmnTitleStructure" prefWidth="283.0" text="C1" />
+              </columns>
+            </TreeTableView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
