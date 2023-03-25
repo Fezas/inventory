@@ -27,6 +27,8 @@
     <mapping class="mo.inventory.entity.AbstractActive"/>
     <mapping class="mo.inventory.entity.TypeActive"/>
     <mapping class="mo.inventory.entity.Okei"/>
+    <mapping class="mo.inventory.entity.Metall"/>
+    <mapping class="mo.inventory.entity.MetallInActive"/>
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
   </session-factory>

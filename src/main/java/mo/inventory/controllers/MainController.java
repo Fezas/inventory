@@ -51,12 +51,12 @@ public class MainController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 //System.out.println("addFix " + checkTreeViewStructure.getSelectionModel().getSelectedItem().getValue().getTitle());
-                //StateDTO selectItem = checkTreeViewStructure.getSelectionModel().getSelectedItem().getValue();
+                StateDTO selectItem = checkTreeViewStructure.getSelectionModel().getSelectedItem().getValue();
                 //System.out.println(PersonaModel.getFromId(selectItem.getIdState()).getFamily());
-                //if(!selectItem.isType()) { //если выбранный узел - персона
-                //    currentPersona = PersonaModel.getFromId(selectItem.getIdState());
-                //    createSceneFix(currentPersona);
-                //}
+                if(!selectItem.isType()) { //если выбранный узел - персона
+                    currentPersona = PersonaModel.getFromId(selectItem.getIdState());
+                    createSceneFix(currentPersona);
+                }
             }
         });
 
@@ -148,14 +148,14 @@ public class MainController implements Initializable {
 
     private void createSceneFix(Persona persona) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/active-fix.fxml"));
-            ActiveFixController activeFixController = new ActiveFixController(persona);
-            loader.setController(activeFixController);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/fix-abstract-active-table.fxml"));
+            FixAbstractController fixAbstractController = new FixAbstractController(persona);
+            loader.setController(fixAbstractController);
             Stage stage = new Stage();
             stage.setTitle("Закрепление");
             Scene scene = new Scene(loader.load());
-            ActiveFixController controller = loader.getController();
-            controller.setParent(this);
+            FixAbstractController controller = loader.getController();
+            controller.setParentFix(this);
             stage.setScene(scene);
             //scene.getStylesheets().add(getClass().getResource("/css/" + css).toString());
             stage.initModality(Modality.APPLICATION_MODAL);

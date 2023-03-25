@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 @Data
 @Entity
-@Table(name = "ABSTRACT_ACTIVE", schema = "PUBLIC", catalog = "INVENTORY")
+@Table(name = "ABSTRACT_ACTIVE", schema = "PUBLIC", catalog = "inventory")
 public class AbstractActive {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -30,6 +30,9 @@ public class AbstractActive {
     @Basic
     @Column(name = "PRICE_0", nullable = true, precision = 2)
     private BigDecimal price0;
+    @Basic
+    @Column(name = "RESOURCE", nullable = true)
+    private Integer resource;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_CATEGORY_ACTIVE", nullable = false)
@@ -51,11 +54,11 @@ public class AbstractActive {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AbstractActive that = (AbstractActive) o;
-        return id == that.id && typeActive == that.typeActive && categoryActive == that.categoryActive && Objects.equals(title, that.title) && Objects.equals(okei, that.okei) && Objects.equals(note, that.note) && Objects.equals(price0, that.price0) && Objects.equals(icon, that.icon);
+        return id == that.id && typeActive == that.typeActive && categoryActive == that.categoryActive && Objects.equals(title, that.title) && Objects.equals(okei, that.okei) && Objects.equals(note, that.note) && Objects.equals(price0, that.price0) && Objects.equals(icon, that.icon) && Objects.equals(resource, that.resource);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, okei, note, typeActive, price0, categoryActive, icon);
+        return Objects.hash(id, title, okei, note, typeActive, price0, categoryActive, icon, resource);
     }
 }

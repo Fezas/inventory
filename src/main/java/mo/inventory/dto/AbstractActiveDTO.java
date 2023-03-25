@@ -19,9 +19,10 @@ public class AbstractActiveDTO {
     private String categoryActive;
     private String typeActive;
     private String okei;
+    private Integer resource;
     private CheckBox remark;
 
-    public AbstractActiveDTO(long id, String title, String note, String icon, BigDecimal price0, String categoryActive, String typeActive, String okei, CheckBox remark) {
+    public AbstractActiveDTO(long id, String title, String note, String icon, BigDecimal price0, String categoryActive, String typeActive, String okei, Integer resource, CheckBox remark) {
         this.id = id;
         this.title = title;
         this.note = note;
@@ -30,6 +31,7 @@ public class AbstractActiveDTO {
         this.categoryActive = categoryActive;
         this.typeActive = typeActive;
         this.okei = okei;
+        this.resource = resource;
         this.remark = new CheckBox();
     }
 
