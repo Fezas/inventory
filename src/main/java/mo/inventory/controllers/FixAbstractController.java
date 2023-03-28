@@ -22,12 +22,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import mo.inventory.entity.AbstractActive;
-import mo.inventory.entity.CategoryActive;
-import mo.inventory.entity.Persona;
-import mo.inventory.model.AbstractActiveModel;
-import mo.inventory.model.CategoryActiveModel;
-import mo.inventory.model.HelpModel;
+import mo.inventory.entity.*;
+import mo.inventory.model.*;
 import mo.inventory.util.ValidatorTextField;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -53,9 +49,9 @@ public class FixAbstractController implements Initializable {
     @FXML    private AnchorPane anchorPane;
     @FXML    private Pane paneTable;
     @FXML    private Button btnCancel, btnSave;
-    @FXML    private ComboBox<?> cmbFunctionActive;
-    @FXML    private ComboBox<?> cmbProvider;
-    @FXML    private ComboBox<?> cmbStatusActive;
+    @FXML    private ComboBox<FunctionActive> cmbFunctionActive;
+    @FXML    private ComboBox<Provider> cmbProvider;
+    @FXML    private ComboBox<StatusActive> cmbStatusActive;
     @FXML    private DatePicker dateAccounting, dateCommissioning;
     @FXML    private Label lblNameMol, lblActiveTitle;
     @FXML    private TextField tfAccountNumber, tfAmount, tfFactoryNumber, tfInventoryNumber;
@@ -77,7 +73,10 @@ public class FixAbstractController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        btnSave.setGraphic(new FontIcon("anto-pushpin"));
+        btnCancel.setGraphic(new FontIcon("anto-close"));
         lblNameMol.setText(persona.getFamily() + " " + persona.getName().charAt(0) + "." + persona.getLastname().charAt(0)); //титул FIO
+        cmbProvider.getItems().addAll(ProviderModel.getAll());
         List<CategoryActive> categories = categoryActiveModel.getAll();
         createButton();
         for (CategoryActive category : categories) {
@@ -102,6 +101,8 @@ public class FixAbstractController implements Initializable {
             mapData.put(category, tableView);
         }
         validate();
+
+
     }
 
     private void validate() {
@@ -211,7 +212,7 @@ public class FixAbstractController implements Initializable {
                     final TableRow<AbstractActive> row = new TableRow<>();
                     row.setOnMouseClicked(event -> {
                         if (event.getClickCount() == 1 && (! row.isEmpty()) ) {
-                            AbstractActive rowData = row.getItem();
+                            AbstractActive selectActive = row.getItem();
                         }
                     });
                     //контексное меню
@@ -270,7 +271,19 @@ public class FixAbstractController implements Initializable {
                 if(tableView.getSelectionModel().getSelectedItem() != null)
                 {
                     changedAbstractActive = (AbstractActive) tableView.getSelectionModel().getSelectedItem();
+                    cmbStatusActive.getItems().addAll(StatusActiveModel.getListStatusesActiveFromType(changedAbstractActive.getTypeObject().getCode()));
+                    cmbFunctionActive.getItems().addAll(FunctionActiveModel.getListFunctionsActiveFromType(changedAbstractActive.getTypeObject().getCode()));
+                    System.out.println();
                     lblActiveTitle.setText(changedAbstractActive.getTitle());
+                    tfAccountNumber.setDisable(false);
+                    tfAmount.setDisable(false);
+                    tfFactoryNumber.setDisable(false);
+                    tfInventoryNumber.setDisable(false);
+                    cmbFunctionActive.setDisable(false);
+                    cmbProvider.setDisable(false);
+                    cmbStatusActive.setDisable(false);
+                    dateAccounting.setDisable(false);
+                    dateCommissioning.setDisable(false);
                 }
             }
         });

@@ -63,8 +63,16 @@ public class AbstractEditController implements Initializable {
         active.setTypeActive(cmbBoxType.getSelectionModel().getSelectedItem());
         active.setOkei(cmbBoxOkei.getSelectionModel().getSelectedItem());
         AbstractActiveModel.saveOrUpdateCategory(active);
+        for (MetallDTO metal : metalls) { // сохраняем металлы
+            if (metal.getWeight() != null) {
+                MetallInActive metallInActive = new MetallInActive();
+                metallInActive.setCodeMetall(metal.getCode());
+                metallInActive.setIdAbstractActive(active.getId());
+                metallInActive.setWeight(Double.parseDouble(metal.getWeight()));
+                MetalInActiveModel.saveOrUpdateStructure(metallInActive);
+            }
+        }
         controller.refresh();
-        //controller.init();
         cancel();
     }
 
@@ -144,12 +152,10 @@ public class AbstractEditController implements Initializable {
 
     private void weightMetallInActive() {
         List<MetallInActive> metallsList = MetalInActiveModel.getFromMetallWithActive(active.getId());
-
         for (MetallInActive metallInActive : metallsList) {
             for (MetallDTO metal : metalls) {
                 if (metal.getCode().equals(metallInActive.getCodeMetall())) {
                     metal.setWeight(Double.toString(metallInActive.getWeight()));
-                    System.out.println("ok");
                 }
             }
         }

@@ -31,6 +31,10 @@ public class TypeObject {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<FunctionActive> functionActives;
 
+    @OneToMany(mappedBy="typeObject")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<AbstractActive> abstractActives;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

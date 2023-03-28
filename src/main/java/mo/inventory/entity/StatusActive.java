@@ -50,4 +50,9 @@ public class StatusActive {
         this.typeObject = typeObject;
         this.icon = icon;
     }
+
+    @Override
+    public String toString() {
+        return titleStatusActive;
+    }
 }

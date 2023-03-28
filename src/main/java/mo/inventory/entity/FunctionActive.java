@@ -50,4 +50,9 @@ public class FunctionActive {
     public int hashCode() {
         return Objects.hash(code, titleFunctionActive, typeObject, icon);
     }
+
+    @Override
+    public String toString() {
+        return titleFunctionActive;
+    }
 }

@@ -19,17 +19,17 @@ public class AbstractActive {
     @Column(name = "ID", nullable = false)
     private long id;
     @Basic
-    @Column(name = "TITLE", nullable = false, length = 120)
+    @Column(name = "TITLE", nullable = false, length = 50)
     private String title;
     @Basic
-    @Column(name = "NOTE", nullable = true, length = 200)
+    @Column(name = "NOTE", nullable = true, length = 300)
     private String note;
-    @Basic
-    @Column(name = "ICON", nullable = true, length = 50)
-    private String icon;
     @Basic
     @Column(name = "PRICE_0", nullable = true, precision = 2)
     private BigDecimal price0;
+    @Basic
+    @Column(name = "ICON", nullable = true, length = 100)
+    private String icon;
     @Basic
     @Column(name = "RESOURCE", nullable = true)
     private Integer resource;
@@ -46,19 +46,28 @@ public class AbstractActive {
     @JoinColumn(name = "ID_OKEI", nullable = true)
     private Okei okei;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_TYPE_OBJECT", nullable = true)
+    private TypeObject typeObject;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_PROVIDER", nullable = true)
+    private Provider provider;
+
     @Transient
     private CheckBox remark = new CheckBox();
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AbstractActive that = (AbstractActive) o;
-        return id == that.id && typeActive == that.typeActive && categoryActive == that.categoryActive && Objects.equals(title, that.title) && Objects.equals(okei, that.okei) && Objects.equals(note, that.note) && Objects.equals(price0, that.price0) && Objects.equals(icon, that.icon) && Objects.equals(resource, that.resource);
+        return id == that.id && typeActive == that.typeActive && categoryActive == that.categoryActive && Objects.equals(title, that.title) && Objects.equals(okei, that.okei) && Objects.equals(note, that.note) && Objects.equals(price0, that.price0) && Objects.equals(icon, that.icon) && Objects.equals(resource, that.resource) && Objects.equals(typeObject, that.typeObject) && Objects.equals(provider, that.provider);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, okei, note, typeActive, price0, categoryActive, icon, resource);
+        return Objects.hash(id, title, okei, note, typeActive, price0, categoryActive, icon, resource, typeObject, provider);
     }
 }
