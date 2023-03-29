@@ -31,6 +31,7 @@
     <mapping class="mo.inventory.entity.MetallInActive"/>
     <mapping class="mo.inventory.entity.Provider"/>
     <mapping class="mo.inventory.entity.Active"/>
+    <mapping class="mo.inventory.entity.SettingMainTable"/>
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
   </session-factory>

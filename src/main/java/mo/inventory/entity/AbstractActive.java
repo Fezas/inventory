@@ -7,8 +7,11 @@ package mo.inventory.entity;
 import jakarta.persistence.*;
 import javafx.scene.control.CheckBox;
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 @Data
 @Entity
@@ -53,6 +56,10 @@ public class AbstractActive {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_PROVIDER", nullable = true)
     private Provider provider;
+
+    @OneToMany(mappedBy="abstractActive")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Active> actives;
 
     @Transient
     private CheckBox remark = new CheckBox();

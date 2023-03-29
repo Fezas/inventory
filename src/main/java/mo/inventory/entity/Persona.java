@@ -6,7 +6,10 @@ package mo.inventory.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
+import java.util.List;
 import java.util.Objects;
 @Data
 @Entity
@@ -37,6 +40,14 @@ public class Persona {
     @Basic
     @Column(name = "ID_ROLE", nullable = false, columnDefinition = "1")
     private int idRole;
+
+    @OneToMany(mappedBy="persona")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Active> actives;
+
+    @OneToMany(mappedBy="newPersona")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Active> activesWithNewPersons;
 
     @Override
     public boolean equals(Object o) {

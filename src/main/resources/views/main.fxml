@@ -211,7 +211,11 @@
             </Tab>
             <Tab text="Настройки">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to top,D1DCFF, transparent);" />
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to top,D1DCFF, transparent);">
+                     <children>
+                        <CheckComboBox fx:id="chkComboBoxClmnVisible" layoutX="166.0" layoutY="12.0" prefHeight="25.0" prefWidth="178.0" />
+                        <Label layoutX="14.0" layoutY="15.0" text="Колонки главной таблицы" />
+                     </children></AnchorPane>
                </content>
             </Tab>
             <Tab text="Фильтры">

@@ -33,6 +33,10 @@ public class Provider {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<AbstractActive> abstractActives;
 
+    @OneToMany(mappedBy="provider")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Active> actives;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

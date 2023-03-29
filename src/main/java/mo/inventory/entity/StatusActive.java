@@ -6,7 +6,10 @@ package mo.inventory.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
+import java.util.List;
 import java.util.Objects;
 @Data
 @Entity
@@ -22,6 +25,10 @@ public class StatusActive {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CODE_TYPE_OBJECT", nullable = false)
     private TypeObject typeObject;
+
+    @OneToMany(mappedBy="statusActive")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Active> actives;
 
     @Basic
     @Column(name = "ICON", length = 50)

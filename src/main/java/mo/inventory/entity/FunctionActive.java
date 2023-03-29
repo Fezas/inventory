@@ -6,7 +6,10 @@ package mo.inventory.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
+import java.util.List;
 import java.util.Objects;
 @Data
 @Entity
@@ -27,6 +30,10 @@ public class FunctionActive {
     @Basic
     @Column(name = "ICON", nullable = true, length = 50)
     private String icon;
+
+    @OneToMany(mappedBy="functionActive")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Active> actives;
 
     public FunctionActive(String code, String titleFunctionActive, TypeObject typeObject, String icon) {
         this.code = code;

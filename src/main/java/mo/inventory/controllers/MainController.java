@@ -14,8 +14,10 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mo.inventory.dto.StateDTO;
+import mo.inventory.entity.Active;
 import mo.inventory.entity.Persona;
 import mo.inventory.entity.Structure;
+import mo.inventory.model.ActiveModel;
 import mo.inventory.model.PersonaModel;
 import mo.inventory.model.StructureModel;
 import mo.inventory.util.ContextMenuListCell;
@@ -40,6 +42,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ActiveModel.getAll();
         createStructure();
         checkTreeViewStructure.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         //checkTreeViewStructure.setShowRoot(false);
@@ -55,7 +58,7 @@ public class MainController implements Initializable {
                 //System.out.println(PersonaModel.getFromId(selectItem.getIdState()).getFamily());
                 if(!selectItem.isType()) { //если выбранный узел - персона
                     currentPersona = PersonaModel.getFromId(selectItem.getIdState());
-                    createSceneFix(currentPersona);
+                    createSceneFix(currentPersona, new Active());
                 }
             }
         });
@@ -146,10 +149,10 @@ public class MainController implements Initializable {
         }
     }
 
-    private void createSceneFix(Persona persona) {
+    private void createSceneFix(Persona persona, Active active) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/fix-abstract-active-table.fxml"));
-            FixAbstractController fixAbstractController = new FixAbstractController(persona);
+            FixAbstractController fixAbstractController = new FixAbstractController(persona, active);
             loader.setController(fixAbstractController);
             Stage stage = new Stage();
             stage.setTitle("Закрепление");

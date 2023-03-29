@@ -25,11 +25,14 @@ import javafx.stage.Stage;
 import mo.inventory.entity.*;
 import mo.inventory.model.*;
 import mo.inventory.util.ValidatorTextField;
+import org.controlsfx.control.CheckComboBox;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class FixAbstractController implements Initializable {
@@ -46,6 +49,7 @@ public class FixAbstractController implements Initializable {
     private TableView<AbstractActive> currentTable;
     private CategoryActiveModel categoryActiveModel = new CategoryActiveModel();
     private MainController mainController;
+    private Active active;
     @FXML    private AnchorPane anchorPane;
     @FXML    private Pane paneTable;
     @FXML    private Button btnCancel, btnSave;
@@ -55,9 +59,11 @@ public class FixAbstractController implements Initializable {
     @FXML    private DatePicker dateAccounting, dateCommissioning;
     @FXML    private Label lblNameMol, lblActiveTitle;
     @FXML    private TextField tfAccountNumber, tfAmount, tfFactoryNumber, tfInventoryNumber;
+    @FXML    private CheckComboBox<?> chkComboBoxClmnVisible;
 
-    public FixAbstractController(Persona persona) {
+    public FixAbstractController(Persona persona, Active active) {
         this.persona = persona;
+        this.active = active;
     }
 
     @FXML
@@ -69,6 +75,28 @@ public class FixAbstractController implements Initializable {
     @FXML
     void save(ActionEvent event) {
         System.out.println(changedAbstractActive.getTitle());
+        active.setAbstractActive(changedAbstractActive);
+        active.setAmount(Double.parseDouble(tfAmount.getText()));
+        if (!tfAccountNumber.getText().isEmpty()) {
+            active.setAccountNumber(tfAccountNumber.getText());
+        }
+        if (!tfFactoryNumber.getText().isEmpty()) {
+            active.setFactoryNumber(tfFactoryNumber.getText());
+        }
+        if (!tfInventoryNumber.getText().isEmpty()) {
+            active.setInventoryNumber(tfInventoryNumber.getText());
+        }
+        active.setPersona(persona);
+        active.setProvider(cmbProvider.getSelectionModel().getSelectedItem());
+        active.setFunctionActive(cmbFunctionActive.getSelectionModel().getSelectedItem());
+        active.setStatusActive(cmbStatusActive.getSelectionModel().getSelectedItem());
+        active.setDateRecordCreation(Timestamp.valueOf(LocalDateTime.now()));
+        ActiveModel.saveOrUpdateStructure(active);
+        tfInventoryNumber.clear();
+        tfFactoryNumber.clear();
+        tfAccountNumber.clear();
+        tfAmount.clear();
+        active = new Active();
     }
 
     @Override
