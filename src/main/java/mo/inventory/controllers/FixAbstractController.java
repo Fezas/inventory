@@ -97,6 +97,7 @@ public class FixAbstractController implements Initializable {
         tfAccountNumber.clear();
         tfAmount.clear();
         active = new Active();
+        mainController.refreshMainTable();
     }
 
     @Override

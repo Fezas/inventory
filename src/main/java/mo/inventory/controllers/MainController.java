@@ -4,6 +4,8 @@
 
 package mo.inventory.controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,14 +13,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mo.inventory.dto.StateDTO;
 import mo.inventory.entity.Active;
 import mo.inventory.entity.Persona;
+import mo.inventory.entity.SettingMainTable;
 import mo.inventory.entity.Structure;
 import mo.inventory.model.ActiveModel;
 import mo.inventory.model.PersonaModel;
+import mo.inventory.model.SettingMainTableModel;
 import mo.inventory.model.StructureModel;
 import mo.inventory.util.ContextMenuListCell;
 import org.controlsfx.control.CheckComboBox;
@@ -32,9 +37,25 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
     private StateDTO node;
     public Persona currentPersona;
+    private TableColumn<Active, String> clmnMol = new TableColumn<>("МОЛ");
+    private TableColumn<Active, String> clmnActive = new TableColumn<>("Актив");
+    private TableColumn<Active, String> clmnAmount = new TableColumn<>("Количество");
+    private TableColumn<Active, String> clmnAccNumb = new TableColumn<>("№ бух. уч.");
+    private TableColumn<Active, String> clmnFactNumb = new TableColumn<>("№ зав.");
+    private TableColumn<Active, String> clmnInvNumb = new TableColumn<>("№ инв.");
+    private TableColumn<Active, String> clmnDateComiss = new TableColumn<>("Дата ввода");
+    private TableColumn<Active, String> clmnDateAcc = new TableColumn<>("Дата постановки");
+    private TableColumn<Active, String> clmnFunc = new TableColumn<>("Функция");
+    private TableColumn<Active, String> clmnStat = new TableColumn<>("Статус");
+    private TableColumn<Active, String> clmnProv = new TableColumn<>("Поставщик");
+    private ObservableList<Active> dataMainTable = FXCollections.observableArrayList();
     @FXML    private CheckTreeView<StateDTO> checkTreeViewStructure;
     @FXML    private CheckComboBox<String> checkBoxCategory;
     @FXML    private Button btnStructure;
+    @FXML    private TableView<Active> mainTable;
+    @FXML    private TabPane tabPaneOutput;
+    @FXML    private Tab tabAll;
+
 
     public Persona getCurrentPersona() {
         return currentPersona;
@@ -69,6 +90,56 @@ public class MainController implements Initializable {
         // То же, что и выше, но использует пользовательскую фабрику ячеек, которая определена в другом месте.
         // checkTreeViewStructure.setCellFactory(ContextMenuListCell.<StateDTO>forListView(contextMenu, customCellFactory));
 
+        //создаем таблицу вывода данных
+        createMainTable();
+    }
+
+    private void createMainTable() {
+        mainTable = new TableView<>();
+
+        mainTable.getColumns().addAll(clmnActive, clmnMol, clmnAmount, clmnAccNumb, clmnFactNumb, clmnInvNumb,
+                clmnDateComiss, clmnDateAcc, clmnFunc, clmnStat, clmnProv);
+        tabAll.setContent(mainTable);
+        loadSettingVisibleColumn();
+        initColumnMainTable();
+        refreshMainTable();
+        //clmnTitle.setCellValueFactory(p -> p.getValue().getAbstractActive().getTitle());
+    }
+
+    public void refreshMainTable() {
+        if (!dataMainTable.isEmpty()) dataMainTable.clear();
+        dataMainTable.addAll(ActiveModel.getAll());
+        mainTable.getItems().addAll(dataMainTable);
+    }
+
+    private void initColumnMainTable() {
+        clmnActive.setCellValueFactory(new PropertyValueFactory<>("abstractActive"));
+        clmnMol.setCellValueFactory(new PropertyValueFactory<>("persona"));
+        clmnAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        clmnAccNumb.setCellValueFactory(new PropertyValueFactory<>("accountNumber"));
+        clmnFactNumb.setCellValueFactory(new PropertyValueFactory<>("factoryNumber"));
+        clmnInvNumb.setCellValueFactory(new PropertyValueFactory<>("inventoryNumber"));
+        clmnDateAcc.setCellValueFactory(new PropertyValueFactory<>("dateAccounting"));
+        clmnDateComiss.setCellValueFactory(new PropertyValueFactory<>("dateComissioning"));
+        clmnFunc.setCellValueFactory(new PropertyValueFactory<>("functionActive"));
+        clmnStat.setCellValueFactory(new PropertyValueFactory<>("statusActive"));
+        clmnProv.setCellValueFactory(new PropertyValueFactory<>("provider"));
+    }
+
+    private void loadSettingVisibleColumn() {
+        //загружаем настройки видимости столбцов для текущего пользователя
+        SettingMainTable settingVisibleClmnMainTable = SettingMainTableModel.getFromId(1L);
+        clmnActive.setVisible(settingVisibleClmnMainTable.isClmnTitle());
+        clmnMol.setVisible(settingVisibleClmnMainTable.isClmnMol());
+        clmnAmount.setVisible(settingVisibleClmnMainTable.isClmnAmount());
+        clmnAccNumb.setVisible(settingVisibleClmnMainTable.isClmnAccountNumber());
+        clmnFactNumb.setVisible(settingVisibleClmnMainTable.isClmnFactoryNumber());
+        clmnInvNumb.setVisible(settingVisibleClmnMainTable.isClmnInventoryNumber());
+        clmnDateAcc.setVisible(settingVisibleClmnMainTable.isClmnDateAccounting());
+        clmnDateComiss.setVisible(settingVisibleClmnMainTable.isClmnDateComissions());
+        clmnFunc.setVisible(settingVisibleClmnMainTable.isClmnFunctionActive());
+        clmnStat.setVisible(settingVisibleClmnMainTable.isClmnStatusActive());
+        clmnProv.setVisible(settingVisibleClmnMainTable.isClmnProvider());
     }
 
     public void createStructure() {

@@ -65,6 +65,7 @@ public class AbstractActive {
     private CheckBox remark = new CheckBox();
 
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -76,5 +77,10 @@ public class AbstractActive {
     @Override
     public int hashCode() {
         return Objects.hash(id, title, okei, note, typeActive, price0, categoryActive, icon, resource, typeObject, provider);
+    }
+
+    @Override
+    public String toString() {
+        return title;
     }
 }

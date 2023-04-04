@@ -9,8 +9,6 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -249,7 +247,6 @@
       </TabPane>
       <AnchorPane layoutY="163.0" prefHeight="637.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="163.0">
          <children>
-            <Button layoutX="4.0" layoutY="550.0" mnemonicParsing="false" onAction="#fixAction" prefHeight="25.0" prefWidth="242.0" text="Закрепить МС" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="4.0" />
             <CheckTreeView fx:id="checkTreeViewStructure" layoutX="14.0" layoutY="4.0" prefHeight="537.0" prefWidth="242.0" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
          </children>
       </AnchorPane>
@@ -263,67 +260,22 @@
             </Label>
             <Button layoutX="822.0" layoutY="31.0" mnemonicParsing="false" text="Сбросить фильтры" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="31.0" />
             <Label layoutX="4.0" layoutY="32.0" text="Фильтры:" />
-            <TextArea layoutX="65.0" layoutY="32.0" prefHeight="40.0" prefWidth="753.0" text="С драгметаллами, Категория - Связь, Требующие ремонта, 2012 год закрепления, Цена от 100 до 10 000 руб, ООО &#10;&quot;СпецСвязь&quot;, Количество 4" />
-            <TabPane layoutX="6.0" layoutY="81.0" prefHeight="537.0" prefWidth="1032.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="8.0">
+            <TextArea layoutX="65.0" layoutY="32.0" prefHeight="40.0" prefWidth="753.0" text="С драгметаллами, Категория - Связь, Требующие ремонта, 2012 год закрепления, Цена от 100 до 10 000 руб, ООО &#10;&quot;СпецСвязь&quot;, Количество 4" AnchorPane.rightAnchor="228.0" />
+            <TabPane fx:id="tabPaneOutput" layoutX="6.0" layoutY="81.0" prefHeight="537.0" prefWidth="1032.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="80.0">
               <tabs>
-                  <Tab text="Все">
+                  <Tab fx:id="tabAll" text="Все">
                      <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="313.0" prefWidth="938.0">
-                           <children>
-                              <TreeTableView fx:id="tblResult2" layoutX="-4.0" layoutY="8.0" prefHeight="548.0" prefWidth="938.0" showRoot="false" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0">
-                                 <columns>
-                                    <TreeTableColumn id="clmnTitle" fx:id="clmnTitle2" prefWidth="399.0" resizable="false" text="Наименование" />
-                                    <TreeTableColumn id="clmnInv" fx:id="clmnInv22" prefWidth="119.0" resizable="false" text="МОЛ" />
-                                    <TreeTableColumn id="clmnInv" fx:id="clmnInv2" prefWidth="89.0" resizable="false" text="№ инв." />
-                                    <TreeTableColumn id="clmnSerial" fx:id="clmnSerial2" prefWidth="76.0" resizable="false" text="№ зав." />
-                                    <TreeTableColumn id="clmnAmount" fx:id="clmnAmount2" prefWidth="59.0" resizable="false" text="Кол-во" />
-                                    <TreeTableColumn id="clmnPrice" fx:id="clmnPrice2" prefWidth="93.0" resizable="false" text="Цена, руб" />
-                                    <TreeTableColumn id="clmnInfo" fx:id="clmnInfo2" prefWidth="159.0" resizable="false" text="Статус, функции" />
-                                    <TreeTableColumn id="clmnCheck" fx:id="clmnCheck2" prefWidth="34.0" resizable="false" />
-                                 </columns>
-                              </TreeTableView>
-                           </children>
-                        </AnchorPane>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="313.0" prefWidth="938.0" />
                      </content>
                   </Tab>
                 <Tab text="В эксплуатации">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="313.0" prefWidth="938.0">
-                           <children>
-                              <TreeTableView fx:id="tblResult" layoutX="-4.0" layoutY="8.0" prefHeight="548.0" prefWidth="938.0" showRoot="false" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0">
-                                <columns>
-                                  <TreeTableColumn id="clmnTitle" fx:id="clmnTitle" prefWidth="399.0" resizable="false" text="Наименование" />
-                                    <TreeTableColumn id="clmnInv" fx:id="clmnInv2" prefWidth="119.0" resizable="false" text="МОЛ" />
-                                  <TreeTableColumn id="clmnInv" fx:id="clmnInv" prefWidth="89.0" resizable="false" text="№ инв." />
-                                    <TreeTableColumn id="clmnSerial" fx:id="clmnSerial" prefWidth="76.0" resizable="false" text="№ зав." />
-                                    <TreeTableColumn id="clmnAmount" fx:id="clmnAmount" prefWidth="59.0" resizable="false" text="Кол-во" />
-                                    <TreeTableColumn id="clmnPrice" fx:id="clmnPrice" prefWidth="93.0" resizable="false" text="Цена, руб" />
-                                    <TreeTableColumn id="clmnInfo" fx:id="clmnInfo" prefWidth="159.0" resizable="false" text="Статус, функции" />
-                                    <TreeTableColumn id="clmnCheck" fx:id="clmnCheck" prefWidth="34.0" resizable="false" />
-                                </columns>
-                              </TreeTableView>
-                           </children>
-                        </AnchorPane>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="313.0" prefWidth="938.0" />
                   </content>
                 </Tab>
                 <Tab text="Списаные">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <TreeTableView fx:id="tblResult1" prefHeight="548.0" prefWidth="938.0" showRoot="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                                 <columns>
-                                    <TreeTableColumn id="clmnTitle" fx:id="clmnTitle1" prefWidth="399.0" resizable="false" text="Наименование" />
-                                    <TreeTableColumn id="clmnInv" fx:id="clmnInv21" prefWidth="119.0" resizable="false" text="МОЛ" />
-                                    <TreeTableColumn id="clmnInv" fx:id="clmnInv1" prefWidth="89.0" resizable="false" text="№ инв." />
-                                    <TreeTableColumn id="clmnSerial" fx:id="clmnSerial1" prefWidth="76.0" resizable="false" text="№ зав." />
-                                    <TreeTableColumn id="clmnAmount" fx:id="clmnAmount1" prefWidth="59.0" resizable="false" text="Кол-во" />
-                                    <TreeTableColumn id="clmnPrice" fx:id="clmnPrice1" prefWidth="93.0" resizable="false" text="Цена, руб" />
-                                    <TreeTableColumn id="clmnInfo" fx:id="clmnInfo1" prefWidth="159.0" resizable="false" text="Дата списания" />
-                                    <TreeTableColumn id="clmnCheck" fx:id="clmnCheck1" prefWidth="34.0" resizable="false" />
-                                 </columns>
-                              </TreeTableView>
-                           </children>
-                        </AnchorPane>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                   </content>
                 </Tab>
                   <Tab text="В ремонте">

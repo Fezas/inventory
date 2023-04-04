@@ -61,4 +61,9 @@ public class Persona {
     public int hashCode() {
         return Objects.hash(id, position, family, name, lastname, structureId, password, idRole);
     }
+
+    @Override
+    public String toString() {
+        return family + name.charAt(0) + "." + lastname.charAt(0) + ".";
+    }
 }

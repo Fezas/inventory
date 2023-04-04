@@ -81,6 +81,8 @@ public class Active {
     @Column(name = "DATE_RECORD_CREATION", nullable = false)
     private Timestamp dateRecordCreation;
 
+    @Transient
+    private String categoryAbstractActive;
 
     @Override
     public boolean equals(Object o) {
@@ -103,4 +105,5 @@ public class Active {
                 dateComissioning, dateAccounting, functionActive, statusActive, provider, reserv1, reserv2, reserv3,
                 reserv4, reserv5, dateRecordCreation);
     }
+
 }
