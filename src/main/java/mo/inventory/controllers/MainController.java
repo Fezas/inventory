@@ -5,15 +5,20 @@
 package mo.inventory.controllers;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mo.inventory.dto.StateDTO;
@@ -25,21 +30,19 @@ import mo.inventory.model.ActiveModel;
 import mo.inventory.model.PersonaModel;
 import mo.inventory.model.SettingMainTableModel;
 import mo.inventory.model.StructureModel;
-import mo.inventory.util.ContextMenuListCell;
 import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.control.CheckTreeView;
 
+import java.math.BigDecimal;
 import java.net.URL;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class MainController implements Initializable {
     private StateDTO node;
     public Persona currentPersona;
     private TableColumn<Active, String> clmnMol = new TableColumn<>("МОЛ");
     private TableColumn<Active, String> clmnActive = new TableColumn<>("Актив");
-    private TableColumn<Active, String> clmnAmount = new TableColumn<>("Количество");
+    private TableColumn<Active, String> clmnAmount = new TableColumn<>("Кол-во");
     private TableColumn<Active, String> clmnAccNumb = new TableColumn<>("№ бух. уч.");
     private TableColumn<Active, String> clmnFactNumb = new TableColumn<>("№ зав.");
     private TableColumn<Active, String> clmnInvNumb = new TableColumn<>("№ инв.");
@@ -48,7 +51,15 @@ public class MainController implements Initializable {
     private TableColumn<Active, String> clmnFunc = new TableColumn<>("Функция");
     private TableColumn<Active, String> clmnStat = new TableColumn<>("Статус");
     private TableColumn<Active, String> clmnProv = new TableColumn<>("Поставщик");
-    private ObservableList<Active> dataMainTable = FXCollections.observableArrayList();
+    private TableColumn<Active, BigDecimal> clmnPrice = new TableColumn<>("Цена");
+    private TableColumn<Active, String> clmnCategory = new TableColumn<>("Категория");
+
+    private ObservableList<Active> allActives = FXCollections.observableArrayList();
+    private ObservableList<Active> filteredDataMainTable = FXCollections.observableArrayList();
+    private Map<Integer,String> mapNameColumn = new HashMap<>();
+    //загружаем настройки видимости столбцов для текущего пользователя
+    private SettingMainTable settingVisibleClmnMainTable = SettingMainTableModel.getFromId(1L);
+    @FXML    private CheckComboBox<String> chkComboBoxClmnVisible;
     @FXML    private CheckTreeView<StateDTO> checkTreeViewStructure;
     @FXML    private CheckComboBox<String> checkBoxCategory;
     @FXML    private Button btnStructure;
@@ -63,9 +74,9 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ActiveModel.getAll();
         createStructure();
-        checkTreeViewStructure.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        createFilterPersona();
+        //checkTreeViewStructure.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         //checkTreeViewStructure.setShowRoot(false);
 
         // Создание MenuItem и помещение его в ContextMenu
@@ -83,22 +94,79 @@ public class MainController implements Initializable {
                 }
             }
         });
-
-        // устанавливает фабрику ячеек в ListView, сообщая ему об использовании ранее созданного ContextMenu (использует фабрику ячеек по умолчанию)
-        checkTreeViewStructure.setCellFactory(ContextMenuListCell.<StateDTO>forListView(contextMenu));
-
-        // То же, что и выше, но использует пользовательскую фабрику ячеек, которая определена в другом месте.
-        // checkTreeViewStructure.setCellFactory(ContextMenuListCell.<StateDTO>forListView(contextMenu, customCellFactory));
+        checkTreeViewStructure.setContextMenu(new ContextMenu(addFix));
 
         //создаем таблицу вывода данных
         createMainTable();
+        initCheckComboBoxClmnVisible();
+        mainTable.setItems(filteredDataMainTable);
+        mainTable.getSortOrder().add(clmnMol);
+    }
+
+    private void initCheckComboBoxClmnVisible() {
+        chkComboBoxClmnVisible.getItems().addAll("Актив", "Мол", "Количество", "Номер бух. учета", "Заводской номер",
+                "Инвентарный номер", "Дата бух.учет", "Дата ввода в экспл.", "Функция", "Статус", "Поставщик", "Цена", "Категория");
+        if (settingVisibleClmnMainTable.isClmnTitle())              chkComboBoxClmnVisible.getCheckModel().checkIndices(0);
+        if (settingVisibleClmnMainTable.isClmnMol())                chkComboBoxClmnVisible.getCheckModel().checkIndices(1);
+        if (settingVisibleClmnMainTable.isClmnAmount())             chkComboBoxClmnVisible.getCheckModel().checkIndices(2);
+        if (settingVisibleClmnMainTable.isClmnAccountNumber())      chkComboBoxClmnVisible.getCheckModel().checkIndices(3);
+        if (settingVisibleClmnMainTable.isClmnFactoryNumber())      chkComboBoxClmnVisible.getCheckModel().checkIndices(4);
+        if (settingVisibleClmnMainTable.isClmnInventoryNumber())    chkComboBoxClmnVisible.getCheckModel().checkIndices(5);
+        if (settingVisibleClmnMainTable.isClmnDateAccounting())     chkComboBoxClmnVisible.getCheckModel().checkIndices(6);
+        if (settingVisibleClmnMainTable.isClmnDateComissions())     chkComboBoxClmnVisible.getCheckModel().checkIndices(7);
+        if (settingVisibleClmnMainTable.isClmnFunctionActive())     chkComboBoxClmnVisible.getCheckModel().checkIndices(8);
+        if (settingVisibleClmnMainTable.isClmnStatusActive())       chkComboBoxClmnVisible.getCheckModel().checkIndices(9);
+        if (settingVisibleClmnMainTable.isClmnProvider())           chkComboBoxClmnVisible.getCheckModel().checkIndices(10);
+        if (settingVisibleClmnMainTable.isClmnPrice())              chkComboBoxClmnVisible.getCheckModel().checkIndices(11);
+        if (settingVisibleClmnMainTable.isClmnCategory())           chkComboBoxClmnVisible.getCheckModel().checkIndices(12);
+
+        chkComboBoxClmnVisible.getCheckModel().getCheckedItems().addListener((ListChangeListener<String>) change -> {
+            while (change.next()) {
+                if (!change.getAddedSubList().isEmpty()) {
+                    switch (change.getAddedSubList().get(0).toString()) {
+                        case ("Актив")              : clmnActive.setVisible(true);      break;
+                        case ("Мол")                : clmnMol.setVisible(true);         break;
+                        case ("Количество")         : clmnAmount.setVisible(true);      break;
+                        case ("Номер бух. учета")   : clmnAccNumb.setVisible(true);     break;
+                        case ("Заводской номер")    : clmnFactNumb.setVisible(true);    break;
+                        case ("Инвентарный номер")  : clmnInvNumb.setVisible(true);     break;
+                        case ("Дата бух.учет")      : clmnDateAcc.setVisible(true);     break;
+                        case ("Дата ввода в экспл."): clmnDateComiss.setVisible(true);  break;
+                        case ("Функция")            : clmnFunc.setVisible(true);        break;
+                        case ("Статус")             : clmnStat.setVisible(true);        break;
+                        case ("Поставщик")          : clmnProv.setVisible(true);        break;
+                        case ("Цена")               : clmnPrice.setVisible(true);       break;
+                        case ("Категория")          : clmnCategory.setVisible(true);    break;
+                    }
+                }
+
+                if (!change.getRemoved().isEmpty()) {
+                    switch (change.getRemoved().get(0).toString()) {
+                        case ("Актив")              : clmnActive.setVisible(false);     break;
+                        case ("Мол")                : clmnMol.setVisible(false);        break;
+                        case ("Количество")         : clmnAmount.setVisible(false);     break;
+                        case ("Номер бух. учета")   : clmnAccNumb.setVisible(false);    break;
+                        case ("Заводской номер")    : clmnFactNumb.setVisible(false);   break;
+                        case ("Инвентарный номер")  : clmnInvNumb.setVisible(false);    break;
+                        case ("Дата бух.учет")      : clmnDateAcc.setVisible(false);    break;
+                        case ("Дата ввода в экспл."): clmnDateComiss.setVisible(false); break;
+                        case ("Функция")            : clmnFunc.setVisible(false);       break;
+                        case ("Статус")             : clmnStat.setVisible(false);       break;
+                        case ("Поставщик")          : clmnProv.setVisible(false);       break;
+                        case ("Цена")               : clmnPrice.setVisible(false);      break;
+                        case ("Категория")          : clmnCategory.setVisible(false);   break;
+                    }
+                }
+
+            }
+        });
+
     }
 
     private void createMainTable() {
         mainTable = new TableView<>();
-
         mainTable.getColumns().addAll(clmnActive, clmnMol, clmnAmount, clmnAccNumb, clmnFactNumb, clmnInvNumb,
-                clmnDateComiss, clmnDateAcc, clmnFunc, clmnStat, clmnProv);
+                clmnDateComiss, clmnDateAcc, clmnFunc, clmnStat, clmnProv, clmnPrice, clmnCategory);
         tabAll.setContent(mainTable);
         loadSettingVisibleColumn();
         initColumnMainTable();
@@ -106,10 +174,31 @@ public class MainController implements Initializable {
         //clmnTitle.setCellValueFactory(p -> p.getValue().getAbstractActive().getTitle());
     }
 
+    private void createFilterPersona() {
+        checkTreeViewStructure.getCheckModel().getCheckedItems().addListener(new ListChangeListener<TreeItem<StateDTO>>() {
+            public void onChanged(ListChangeListener.Change<? extends TreeItem<StateDTO>> c) {
+                ObservableList<TreeItem<StateDTO>> checkedItems = checkTreeViewStructure.getCheckModel().getCheckedItems();
+                filteredDataMainTable.clear();
+                for (TreeItem<StateDTO> item : checkedItems) {
+                    if (!item.getValue().isType()) {
+                        for (Active active : allActives) {
+                            if (active.getPersona().getId() == item.getValue().getIdState()) {
+                                filteredDataMainTable.add(active);
+                            }
+                        }
+                    }
+                }
+                if (checkedItems.isEmpty()) filteredDataMainTable.addAll(allActives);
+                mainTable.getSortOrder().add(clmnMol);
+            }
+        });
+    }
+
     public void refreshMainTable() {
-        if (!dataMainTable.isEmpty()) dataMainTable.clear();
-        dataMainTable.addAll(ActiveModel.getAll());
-        mainTable.getItems().addAll(dataMainTable);
+        if (!filteredDataMainTable.isEmpty()) filteredDataMainTable.clear();
+        allActives.addAll(ActiveModel.getAll());
+        filteredDataMainTable.addAll(allActives); // первое заполнение
+
     }
 
     private void initColumnMainTable() {
@@ -124,11 +213,11 @@ public class MainController implements Initializable {
         clmnFunc.setCellValueFactory(new PropertyValueFactory<>("functionActive"));
         clmnStat.setCellValueFactory(new PropertyValueFactory<>("statusActive"));
         clmnProv.setCellValueFactory(new PropertyValueFactory<>("provider"));
+        clmnPrice.setCellValueFactory(new PropertyValueFactory<>("price0"));
+        clmnCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
     }
 
     private void loadSettingVisibleColumn() {
-        //загружаем настройки видимости столбцов для текущего пользователя
-        SettingMainTable settingVisibleClmnMainTable = SettingMainTableModel.getFromId(1L);
         clmnActive.setVisible(settingVisibleClmnMainTable.isClmnTitle());
         clmnMol.setVisible(settingVisibleClmnMainTable.isClmnMol());
         clmnAmount.setVisible(settingVisibleClmnMainTable.isClmnAmount());
@@ -140,6 +229,8 @@ public class MainController implements Initializable {
         clmnFunc.setVisible(settingVisibleClmnMainTable.isClmnFunctionActive());
         clmnStat.setVisible(settingVisibleClmnMainTable.isClmnStatusActive());
         clmnProv.setVisible(settingVisibleClmnMainTable.isClmnProvider());
+        clmnPrice.setVisible(settingVisibleClmnMainTable.isClmnPrice());
+        clmnCategory.setVisible(settingVisibleClmnMainTable.isClmnCategory());
     }
 
     public void createStructure() {
@@ -169,11 +260,19 @@ public class MainController implements Initializable {
     public void structure(CheckBoxTreeItem<StateDTO> itemRoot) {
         List<Structure> data = StructureModel.getFromIdStructure(itemRoot.getValue().getIdState()); //дочерние узлы
         List<Persona> persons = PersonaModel.getFromIdStructure(itemRoot.getValue().getIdState()); //персоны в узлах
+
         if (!persons.isEmpty()) {
             for (Persona persona : persons) {
+                ImageView imgIconUser = new ImageView(new Image(getClass().getResourceAsStream("/images/user.png")));
+                //imgIconUser.setX(15.0);
+                imgIconUser.setFitWidth(14);
+                imgIconUser.setFitHeight(14);
+                HBox boxIcon = new HBox(imgIconUser);
+                boxIcon.setPrefWidth(30);
+                boxIcon.setAlignment(Pos.CENTER);
                 String fio = persona.getFamily() + " " + persona.getName().charAt(0) + "." + persona.getLastname().charAt(0) + ".";
                 StateDTO node = new StateDTO(persona.getPosition() + " " + fio, persona.getId(), false);
-                CheckBoxTreeItem<StateDTO> itemPersona = new CheckBoxTreeItem<StateDTO>(node);
+                CheckBoxTreeItem<StateDTO> itemPersona = new CheckBoxTreeItem<StateDTO>(node, boxIcon);
                 itemPersona.getValue().getBtnAddNode().setVisible(false);
                 itemPersona.getValue().getBtnAddPersona().setVisible(false);
                 itemRoot.getChildren().add(itemPersona);

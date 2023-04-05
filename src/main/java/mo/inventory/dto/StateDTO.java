@@ -58,8 +58,6 @@ public class StateDTO {
 
     @Override
     public String toString() {
-        return "StateDTO{" +
-                "title='" + title + '\'' +
-                '}';
+        return title;
     }
 }

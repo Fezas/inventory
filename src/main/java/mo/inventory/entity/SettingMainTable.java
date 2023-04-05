@@ -50,19 +50,32 @@ public class SettingMainTable {
     @Column(name = "CLMN_STATUS_ACTIVE", nullable = false)
     private boolean clmnStatusActive;
     @Basic
-    @Column(name = "CLMN_PROVIDER", nullable = true)
+    @Column(name = "CLMN_PROVIDER", nullable = false)
     private boolean clmnProvider;
-
+    @Basic
+    @Column(name = "CLMN_PRICE", nullable = false)
+    private boolean clmnPrice;
+    @Basic
+    @Column(name = "CLMN_CATEGORY", nullable = false)
+    private boolean clmnCategory;
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SettingMainTable that = (SettingMainTable) o;
-        return idUser == that.idUser && clmnTitle == that.clmnTitle && clmnMol == that.clmnMol && clmnNewMol == that.clmnNewMol && clmnAmount == that.clmnAmount && clmnAccountNumber == that.clmnAccountNumber && clmnFactoryNumber == that.clmnFactoryNumber && clmnInventoryNumber == that.clmnInventoryNumber && clmnDateComissions == that.clmnDateComissions && clmnDateAccounting == that.clmnDateAccounting && clmnFunctionActive == that.clmnFunctionActive && clmnStatusActive == that.clmnStatusActive && Objects.equals(clmnProvider, that.clmnProvider);
+        return idUser == that.idUser && clmnTitle == that.clmnTitle && clmnMol == that.clmnMol &&
+                clmnNewMol == that.clmnNewMol && clmnAmount == that.clmnAmount &&
+                clmnAccountNumber == that.clmnAccountNumber && clmnFactoryNumber == that.clmnFactoryNumber &&
+                clmnInventoryNumber == that.clmnInventoryNumber && clmnDateComissions == that.clmnDateComissions &&
+                clmnDateAccounting == that.clmnDateAccounting && clmnFunctionActive == that.clmnFunctionActive &&
+                clmnStatusActive == that.clmnStatusActive && Objects.equals(clmnProvider, that.clmnProvider) &&
+                clmnPrice == that.clmnPrice && clmnCategory == that.clmnCategory;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idUser, clmnTitle, clmnMol, clmnNewMol, clmnAmount, clmnAccountNumber, clmnFactoryNumber, clmnInventoryNumber, clmnDateComissions, clmnDateAccounting, clmnFunctionActive, clmnStatusActive, clmnProvider);
+        return Objects.hash(idUser, clmnTitle, clmnMol, clmnNewMol, clmnAmount, clmnAccountNumber, clmnFactoryNumber,
+                clmnInventoryNumber, clmnDateComissions, clmnDateAccounting, clmnFunctionActive, clmnStatusActive,
+                clmnProvider, clmnPrice, clmnCategory);
     }
 }

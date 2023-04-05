@@ -7,6 +7,7 @@ package mo.inventory.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -83,6 +84,10 @@ public class Active {
 
     @Transient
     private String categoryAbstractActive;
+    @Transient
+    private BigDecimal price0;
+    @Transient
+    private String category;
 
     @Override
     public boolean equals(Object o) {
@@ -106,4 +111,11 @@ public class Active {
                 reserv4, reserv5, dateRecordCreation);
     }
 
+    public BigDecimal getPrice0() {
+        return abstractActive.getPrice0();
+    }
+
+    public String getCategory() {
+        return abstractActive.getCategoryActive().getTitle();
+    }
 }

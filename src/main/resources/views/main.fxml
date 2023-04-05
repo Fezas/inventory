@@ -260,7 +260,7 @@
             </Label>
             <Button layoutX="822.0" layoutY="31.0" mnemonicParsing="false" text="Сбросить фильтры" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="31.0" />
             <Label layoutX="4.0" layoutY="32.0" text="Фильтры:" />
-            <TextArea layoutX="65.0" layoutY="32.0" prefHeight="40.0" prefWidth="753.0" text="С драгметаллами, Категория - Связь, Требующие ремонта, 2012 год закрепления, Цена от 100 до 10 000 руб, ООО &#10;&quot;СпецСвязь&quot;, Количество 4" AnchorPane.rightAnchor="228.0" />
+            <TextArea layoutX="65.0" layoutY="32.0" prefHeight="40.0" prefWidth="753.0" text="С драгметаллами, Категория - Связь, Требующие ремонта, 2012 год закрепления, Цена от 100 до 10 000 руб, ООО &#10;&quot;СпецСвязь&quot;, Количество 4" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="228.0" />
             <TabPane fx:id="tabPaneOutput" layoutX="6.0" layoutY="81.0" prefHeight="537.0" prefWidth="1032.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="80.0">
               <tabs>
                   <Tab fx:id="tabAll" text="Все">
