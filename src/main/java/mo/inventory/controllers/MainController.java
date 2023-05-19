@@ -41,6 +41,7 @@ public class MainController implements Initializable {
     private StateDTO node;
     public Persona currentPersona;
     private TableColumn<Active, String> clmnMol = new TableColumn<>("МОЛ");
+    private TableColumn<Active, String> clmnNewMol = new TableColumn<>("МОЛ");
     private TableColumn<Active, String> clmnActive = new TableColumn<>("Актив");
     private TableColumn<Active, String> clmnAmount = new TableColumn<>("Кол-во");
     private TableColumn<Active, String> clmnAccNumb = new TableColumn<>("№ бух. уч.");
@@ -66,6 +67,7 @@ public class MainController implements Initializable {
     @FXML    private TableView<Active> mainTable;
     @FXML    private TabPane tabPaneOutput;
     @FXML    private Tab tabAll;
+    @FXML    private TextField tfFilterStructure;
 
 
     public Persona getCurrentPersona() {
@@ -75,7 +77,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         createStructure();
-        createFilterPersona();
+        filteredMainTableFromPersona();
         //checkTreeViewStructure.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         //checkTreeViewStructure.setShowRoot(false);
 
@@ -99,13 +101,26 @@ public class MainController implements Initializable {
         //создаем таблицу вывода данных
         createMainTable();
         initCheckComboBoxClmnVisible();
+        initTextFieldFilterStructure();
         mainTable.setItems(filteredDataMainTable);
         mainTable.getSortOrder().add(clmnMol);
+    }
+    private void initTextFieldFilterStructure() {
+        tfFilterStructure.textProperty().addListener((observable, oldValue, newValue) -> {
+            ObservableList<TreeItem<StateDTO>> nodes = checkTreeViewStructure.getRoot().getChildren();
+            for (TreeItem<StateDTO> node : nodes) {
+                String nodesText = node.getValue().getTitle();
+                System.out.println(nodesText);
+                if (nodesText.matches(newValue)) {
+                    System.out.println(nodesText + "!!!");
+                }
+            }
+        });
     }
 
     private void initCheckComboBoxClmnVisible() {
         chkComboBoxClmnVisible.getItems().addAll("Актив", "Мол", "Количество", "Номер бух. учета", "Заводской номер",
-                "Инвентарный номер", "Дата бух.учет", "Дата ввода в экспл.", "Функция", "Статус", "Поставщик", "Цена", "Категория");
+                "Инвентарный номер", "Дата бух.учет", "Дата ввода в экспл.", "Функция", "Статус", "Поставщик", "Цена", "Категория", "Новый Мол");
         if (settingVisibleClmnMainTable.isClmnTitle())              chkComboBoxClmnVisible.getCheckModel().checkIndices(0);
         if (settingVisibleClmnMainTable.isClmnMol())                chkComboBoxClmnVisible.getCheckModel().checkIndices(1);
         if (settingVisibleClmnMainTable.isClmnAmount())             chkComboBoxClmnVisible.getCheckModel().checkIndices(2);
@@ -119,13 +134,14 @@ public class MainController implements Initializable {
         if (settingVisibleClmnMainTable.isClmnProvider())           chkComboBoxClmnVisible.getCheckModel().checkIndices(10);
         if (settingVisibleClmnMainTable.isClmnPrice())              chkComboBoxClmnVisible.getCheckModel().checkIndices(11);
         if (settingVisibleClmnMainTable.isClmnCategory())           chkComboBoxClmnVisible.getCheckModel().checkIndices(12);
-
+        if (settingVisibleClmnMainTable.isClmnNewMol())             chkComboBoxClmnVisible.getCheckModel().checkIndices(13);
         chkComboBoxClmnVisible.getCheckModel().getCheckedItems().addListener((ListChangeListener<String>) change -> {
             while (change.next()) {
                 if (!change.getAddedSubList().isEmpty()) {
                     switch (change.getAddedSubList().get(0).toString()) {
                         case ("Актив")              : clmnActive.setVisible(true);      break;
                         case ("Мол")                : clmnMol.setVisible(true);         break;
+                        case ("Новый Мол")          : clmnNewMol.setVisible(true);      break;
                         case ("Количество")         : clmnAmount.setVisible(true);      break;
                         case ("Номер бух. учета")   : clmnAccNumb.setVisible(true);     break;
                         case ("Заводской номер")    : clmnFactNumb.setVisible(true);    break;
@@ -144,6 +160,7 @@ public class MainController implements Initializable {
                     switch (change.getRemoved().get(0).toString()) {
                         case ("Актив")              : clmnActive.setVisible(false);     break;
                         case ("Мол")                : clmnMol.setVisible(false);        break;
+                        case ("Новый Мол")          : clmnNewMol.setVisible(false);      break;
                         case ("Количество")         : clmnAmount.setVisible(false);     break;
                         case ("Номер бух. учета")   : clmnAccNumb.setVisible(false);    break;
                         case ("Заводской номер")    : clmnFactNumb.setVisible(false);   break;
@@ -166,7 +183,7 @@ public class MainController implements Initializable {
     private void createMainTable() {
         mainTable = new TableView<>();
         mainTable.getColumns().addAll(clmnActive, clmnMol, clmnAmount, clmnAccNumb, clmnFactNumb, clmnInvNumb,
-                clmnDateComiss, clmnDateAcc, clmnFunc, clmnStat, clmnProv, clmnPrice, clmnCategory);
+                clmnDateComiss, clmnDateAcc, clmnFunc, clmnStat, clmnProv, clmnPrice, clmnCategory, clmnNewMol);
         tabAll.setContent(mainTable);
         loadSettingVisibleColumn();
         initColumnMainTable();
@@ -174,7 +191,7 @@ public class MainController implements Initializable {
         //clmnTitle.setCellValueFactory(p -> p.getValue().getAbstractActive().getTitle());
     }
 
-    private void createFilterPersona() {
+    private void filteredMainTableFromPersona() {
         checkTreeViewStructure.getCheckModel().getCheckedItems().addListener(new ListChangeListener<TreeItem<StateDTO>>() {
             public void onChanged(ListChangeListener.Change<? extends TreeItem<StateDTO>> c) {
                 ObservableList<TreeItem<StateDTO>> checkedItems = checkTreeViewStructure.getCheckModel().getCheckedItems();
@@ -204,6 +221,7 @@ public class MainController implements Initializable {
     private void initColumnMainTable() {
         clmnActive.setCellValueFactory(new PropertyValueFactory<>("abstractActive"));
         clmnMol.setCellValueFactory(new PropertyValueFactory<>("persona"));
+        clmnNewMol.setCellValueFactory(new PropertyValueFactory<>("newPersona"));
         clmnAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
         clmnAccNumb.setCellValueFactory(new PropertyValueFactory<>("accountNumber"));
         clmnFactNumb.setCellValueFactory(new PropertyValueFactory<>("factoryNumber"));
@@ -220,6 +238,7 @@ public class MainController implements Initializable {
     private void loadSettingVisibleColumn() {
         clmnActive.setVisible(settingVisibleClmnMainTable.isClmnTitle());
         clmnMol.setVisible(settingVisibleClmnMainTable.isClmnMol());
+        clmnNewMol.setVisible(settingVisibleClmnMainTable.isClmnNewMol());
         clmnAmount.setVisible(settingVisibleClmnMainTable.isClmnAmount());
         clmnAccNumb.setVisible(settingVisibleClmnMainTable.isClmnAccountNumber());
         clmnFactNumb.setVisible(settingVisibleClmnMainTable.isClmnFactoryNumber());
