@@ -5,6 +5,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
@@ -101,7 +102,6 @@
                               </VBox>
                            </graphic>
                         </Button>
-                        <Separator layoutX="443.0" layoutY="7.0" orientation="VERTICAL" prefHeight="83.0" prefWidth="3.0" />
                         <Button fx:id="btnStructure" layoutX="14.0" layoutY="4.0" mnemonicParsing="false" onAction="#structureAction" prefHeight="70.0" prefWidth="60.0" style="-fx-padding: 1; -fx-background-color: transparent;" styleClass="btn-menu" AnchorPane.topAnchor="6.0">
                            <graphic>
                               <VBox prefHeight="44.0" prefWidth="60.0" style="-fx-alignment: CENTER; -fx-padding: 1;">
@@ -115,6 +115,25 @@
                                        </VBox.margin>
                                     </ImageView>
                                     <Label disable="true" styleClass="btn-label" text="Структура" />
+                                 </children>
+                              </VBox>
+                           </graphic>
+                        </Button>
+                        <Separator layoutX="443.0" layoutY="7.0" orientation="VERTICAL" prefHeight="83.0" prefWidth="3.0" />
+                        <Label layoutX="573.0" layoutY="76.0" text="Экспорт" />
+                        <Button fx:id="btnFunctionActive1" layoutX="457.0" layoutY="6.0" mnemonicParsing="false" onAction="#functionAction" prefHeight="70.0" prefWidth="66.0" style="-fx-padding: 1; -fx-background-color: transparent;" styleClass="btn-menu" AnchorPane.topAnchor="6.0">
+                           <graphic>
+                              <VBox prefHeight="44.0" prefWidth="60.0" style="-fx-alignment: CENTER; -fx-padding: 1;">
+                                 <children>
+                                    <ImageView fitHeight="40.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/excel.png" />
+                                       </image>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </ImageView>
+                                    <Label disable="true" styleClass="btn-label" text="В Excel" />
                                  </children>
                               </VBox>
                            </graphic>
@@ -245,52 +264,56 @@
             </Tab>
         </tabs>
       </TabPane>
-      <AnchorPane layoutY="163.0" prefHeight="637.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="163.0">
-         <children>
-            <CheckTreeView fx:id="checkTreeViewStructure" layoutX="14.0" layoutY="4.0" prefHeight="537.0" prefWidth="242.0" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
-         </children>
-      </AnchorPane>
-      <TextField layoutX="4.0" layoutY="130.0" prefHeight="25.0" prefWidth="242.0" text="Поиск отдела или МОЛа" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="130.0" />
-      <AnchorPane layoutX="250.0" layoutY="127.0" prefHeight="672.0" prefWidth="947.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="124.0">
-         <children>
-            <Label layoutX="4.0" layoutY="5.0" text="ОТДЕЛ 4">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Button layoutX="822.0" layoutY="31.0" mnemonicParsing="false" text="Сбросить фильтры" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="31.0" />
-            <Label layoutX="4.0" layoutY="32.0" text="Фильтры:" />
-            <TextArea layoutX="65.0" layoutY="32.0" prefHeight="40.0" prefWidth="753.0" text="С драгметаллами, Категория - Связь, Требующие ремонта, 2012 год закрепления, Цена от 100 до 10 000 руб, ООО &#10;&quot;СпецСвязь&quot;, Количество 4" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="228.0" />
-            <TabPane fx:id="tabPaneOutput" layoutX="6.0" layoutY="81.0" prefHeight="537.0" prefWidth="1032.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="80.0">
-              <tabs>
-                  <Tab fx:id="tabAll" text="Все">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="313.0" prefWidth="938.0" />
-                     </content>
-                  </Tab>
-                <Tab text="В эксплуатации">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="313.0" prefWidth="938.0" />
-                  </content>
-                </Tab>
-                <Tab text="Списаные">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </Tab>
-                  <Tab text="В ремонте">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                     </content>
-                  </Tab>
-                  <Tab text="Переданные">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                     </content>
-                  </Tab>
-              </tabs>
-            </TabPane>
-         </children>
-      </AnchorPane>
+      <SplitPane dividerPositions="0.2223950233281493" layoutX="25.0" layoutY="138.0" prefHeight="646.0" prefWidth="1288.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="644.0" prefWidth="361.0">
+               <children>
+                  <TextField fx:id="tfFilterStructure" layoutX="12.0" layoutY="11.0" prefHeight="25.0" prefWidth="266.0" text="Поиск отдела или МОЛа" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="11.0" />
+                  <CheckTreeView fx:id="checkTreeViewStructure" layoutX="11.0" layoutY="46.0" prefHeight="589.0" prefWidth="266.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="46.0" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <Label layoutX="10.0" layoutY="1.0" text="ОТДЕЛ 4">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="768.0" layoutY="30.0" mnemonicParsing="false" text="Сбросить фильтры" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="30.0" />
+                  <Label layoutX="23.0" layoutY="32.0" text="Фильтры:" />
+                  <TextArea layoutX="90.0" layoutY="22.0" prefHeight="40.0" prefWidth="753.0" text="С драгметаллами, Категория - Связь, Требующие ремонта, 2012 год закрепления, Цена от 100 до 10 000 руб, ООО &#10;&quot;СпецСвязь&quot;, Количество 4" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="203.0" />
+                  <TabPane fx:id="tabPaneOutput" layoutX="10.0" layoutY="73.0" prefHeight="559.0" prefWidth="880.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="73.0">
+                    <tabs>
+                        <Tab fx:id="tabAll" text="Все">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="313.0" prefWidth="938.0" />
+                           </content>
+                        </Tab>
+                      <Tab text="В эксплуатации">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="313.0" prefWidth="938.0" />
+                        </content>
+                      </Tab>
+                      <Tab text="Списаные">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        </content>
+                      </Tab>
+                        <Tab text="В ремонте">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                        <Tab text="Переданные">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                    </tabs>
+                  </TabPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
    </children>
 </AnchorPane>
